@@ -381,6 +381,12 @@
             <h2>Blog Admin</h2>
             <p>Enter the admin password to continue.</p>
             <input type="password" id="passwordInput" placeholder="Password" onkeydown="if(event.key==='Enter')attemptLogin()">
+            <input type="password" id="ghTokenInput" placeholder="GitHub Token (first time only)" style="margin-top:4px;">
+            <p style="color:rgba(255,255,255,0.35);font-size:0.75rem;margin-bottom:16px;text-align:left;">
+                GitHub token is stored in your browser only. Create one at
+                <a href="https://github.com/settings/tokens/new?scopes=repo&description=Cloudberry+Admin" target="_blank" style="color:var(--cloudberry-yellow);">github.com/settings/tokens</a>
+                with "repo" scope.
+            </p>
             <button class="login-btn" onclick="attemptLogin()">Sign In</button>
             <p class="login-error" id="loginError">Incorrect password.</p>
         </div>
@@ -475,7 +481,7 @@
                 <button class="btn btn-outline btn-sm" onclick="previewPost()">Preview</button>
                 <div class="editor-footer-right">
                     <button class="btn btn-outline" onclick="backToList()">Cancel</button>
-                    <button class="btn btn-yellow" onclick="savePost()">Save & Download</button>
+                    <button class="btn btn-yellow" onclick="savePost()">Publish</button>
                 </div>
             </div>
         </div>
@@ -500,7 +506,7 @@
     <script>
         // ===== AUTH =====
         // Simple password hash (not security critical, just keeps casual visitors out)
-        const PASS_HASH = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'; // "password"
+        const PASS_HASH = '01e8ece754c1c4e1bf6ccfdcb8ffd937b28d3e69430146510a04f943398f322f';
 
         async function hashPassword(pw) {
             const enc = new TextEncoder().encode(pw);
@@ -508,15 +514,26 @@
             return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
+        const GITHUB_REPO = 'Cloudberry-vc/cloudberry-website';
+
         async function attemptLogin() {
             const pw = document.getElementById('passwordInput').value;
             const hash = await hashPassword(pw);
             if (hash === PASS_HASH) {
                 sessionStorage.setItem('cb_admin', '1');
+                // Save GitHub token if provided
+                const token = document.getElementById('ghTokenInput').value.trim();
+                if (token) {
+                    localStorage.setItem('cb_gh_token', token);
+                }
                 showAdmin();
             } else {
                 document.getElementById('loginError').style.display = 'block';
             }
+        }
+
+        function getGhToken() {
+            return localStorage.getItem('cb_gh_token') || '';
         }
 
         function logout() {
@@ -679,7 +696,61 @@
                 .substring(0, 60);
         }
 
-        function savePost() {
+        // ===== GITHUB API =====
+        async function ghGetFile(path) {
+            const token = getGhToken();
+            const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${path}`, {
+                headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+            });
+            if (res.status === 404) return null;
+            if (!res.ok) throw new Error('GitHub API error: ' + res.status);
+            return await res.json();
+        }
+
+        async function ghPutFile(path, content, message) {
+            const token = getGhToken();
+            // Get current file SHA if it exists (needed for updates)
+            const existing = await ghGetFile(path);
+            const body = {
+                message: message,
+                content: btoa(unescape(encodeURIComponent(content)))
+            };
+            if (existing && existing.sha) {
+                body.sha = existing.sha;
+            }
+            const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${path}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+            if (!res.ok) {
+                const err = await res.json();
+                throw new Error(err.message || 'GitHub API error');
+            }
+            return await res.json();
+        }
+
+        async function ghDeleteFile(path, message) {
+            const token = getGhToken();
+            const existing = await ghGetFile(path);
+            if (!existing) return;
+            const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${path}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: message, sha: existing.sha })
+            });
+            if (!res.ok) throw new Error('Failed to delete file');
+        }
+
+        async function savePost() {
             const title = document.getElementById('postTitle').value.trim();
             const date = document.getElementById('postDate').value;
             const category = document.getElementById('postCategory').value.trim();
@@ -690,11 +761,16 @@
             if (!date) { showToast('Please select a date.', 'error'); return; }
             if (!summary) { showToast('Please enter a summary.', 'error'); return; }
 
+            const token = getGhToken();
+            if (!token) {
+                showToast('No GitHub token. Sign out and sign in with a token.', 'error');
+                return;
+            }
+
             const id = editingId || slugify(title);
             const isHtml = currentMode === 'html';
             const fileName = isHtml ? id + '.html' : '';
 
-            // Build post metadata
             const postMeta = {
                 id: id,
                 title: title,
@@ -714,44 +790,32 @@
                 posts.push(postMeta);
             }
 
-            // Save to localStorage as backup
             localStorage.setItem('cb_admin_posts', JSON.stringify(posts));
 
-            // Generate downloadable files
-            const files = [];
+            showToast('Publishing...', '');
 
-            // 1. Updated posts.json
-            const postsJson = JSON.stringify(posts, null, 2);
-            files.push({ name: 'posts.json', content: postsJson, type: 'application/json' });
+            try {
+                // 1. Push post content file
+                if (isHtml) {
+                    const htmlContent = document.getElementById('htmlContent').value;
+                    await ghPutFile('posts/' + id + '.html', htmlContent, 'Publish: ' + title);
+                } else {
+                    const articleContent = quill.root.innerHTML;
+                    const contentJson = JSON.stringify({ id: id, content: articleContent }, null, 2);
+                    await ghPutFile('posts/' + id + '.json', contentJson, 'Publish: ' + title);
+                }
 
-            // 2. Post content file
-            if (isHtml) {
-                const htmlContent = document.getElementById('htmlContent').value;
-                files.push({ name: id + '.html', content: htmlContent, type: 'text/html' });
-            } else {
-                const articleContent = quill.root.innerHTML;
-                const contentJson = JSON.stringify({ id: id, content: articleContent }, null, 2);
-                files.push({ name: id + '.json', content: contentJson, type: 'application/json' });
+                // 2. Push updated posts.json
+                const postsJson = JSON.stringify(posts, null, 2);
+                await ghPutFile('posts/posts.json', postsJson, 'Update posts index');
+
+                renderPostList();
+                backToList();
+                showToast('Published! Site will update in a few seconds.', 'success');
+            } catch (e) {
+                showToast('Error: ' + e.message, 'error');
+                console.error(e);
             }
-
-            // Download all files
-            files.forEach(f => downloadFile(f.name, f.content, f.type));
-
-            renderPostList();
-            backToList();
-            showToast('Saved! Place downloaded files in your posts/ folder, then push to GitHub.', 'success');
-        }
-
-        function downloadFile(name, content, type) {
-            const blob = new Blob([content], { type: type });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = name;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
         }
 
         // ===== DELETE =====
@@ -768,18 +832,39 @@
             document.getElementById('deleteModal').classList.remove('show');
         }
 
-        function confirmDelete() {
+        async function confirmDelete() {
             if (!deleteTargetId) return;
-            posts = posts.filter(p => p.id !== deleteTargetId);
-            localStorage.setItem('cb_admin_posts', JSON.stringify(posts));
 
-            // Download updated posts.json
-            const postsJson = JSON.stringify(posts, null, 2);
-            downloadFile('posts.json', postsJson, 'application/json');
+            const token = getGhToken();
+            if (!token) {
+                showToast('No GitHub token. Sign out and sign in with a token.', 'error');
+                return;
+            }
 
-            closeDeleteModal();
-            renderPostList();
-            showToast('Deleted. Replace posts.json in your repo and remove the post file.', 'success');
+            const post = posts.find(p => p.id === deleteTargetId);
+            showToast('Deleting...', '');
+
+            try {
+                // Delete the post content file
+                if (post.type === 'html' && post.file) {
+                    await ghDeleteFile('posts/' + post.file, 'Delete: ' + post.title);
+                } else {
+                    await ghDeleteFile('posts/' + deleteTargetId + '.json', 'Delete: ' + post.title);
+                }
+
+                // Update posts.json
+                posts = posts.filter(p => p.id !== deleteTargetId);
+                localStorage.setItem('cb_admin_posts', JSON.stringify(posts));
+                const postsJson = JSON.stringify(posts, null, 2);
+                await ghPutFile('posts/posts.json', postsJson, 'Remove deleted post from index');
+
+                closeDeleteModal();
+                renderPostList();
+                showToast('Deleted and site updated.', 'success');
+            } catch (e) {
+                showToast('Error: ' + e.message, 'error');
+                console.error(e);
+            }
         }
 
         // ===== PREVIEW =====
