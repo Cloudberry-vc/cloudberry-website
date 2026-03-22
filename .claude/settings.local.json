@@ -12,7 +12,9 @@
       "Bash(git --version)",
       "Bash(brew --version)",
       "Bash(brew install:*)",
-      "Bash(gh org:*)"
+      "Bash(gh org:*)",
+      "Bash(gh repo:*)",
+      "Bash(gh api:*)"
     ]
   }
 }
