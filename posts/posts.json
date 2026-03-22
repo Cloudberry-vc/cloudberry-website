@@ -1,0 +1,32 @@
+[
+  {
+    "id": "semiconductor-packaging",
+    "title": "From Chips to Chiplets: The Packaging Revolution",
+    "summary": "Advanced packaging is reshaping semiconductor design. We explore why chiplet architectures and heterogeneous integration represent a major investment opportunity in Europe.",
+    "date": "2025-03-15",
+    "category": "Deep Dive",
+    "coverImage": "",
+    "type": "html",
+    "file": "semiconductor-packaging.html"
+  },
+  {
+    "id": "cloudberry-launches",
+    "title": "Cloudberry Launches Europe's First Semiconductor Venture Fund",
+    "summary": "Introducing a 30M euro fund dedicated to backing European semiconductor, photonics, and advanced materials startups at the earliest stages.",
+    "date": "2025-02-01",
+    "category": "Fund News",
+    "coverImage": "",
+    "type": "article",
+    "file": ""
+  },
+  {
+    "id": "why-europe-semiconductors",
+    "title": "Why Europe Needs a Semiconductor VC",
+    "summary": "Europe pioneered much of this technology within living memory. It can lead again. Here is why dedicated early stage capital matters.",
+    "date": "2025-01-20",
+    "category": "Thesis",
+    "coverImage": "",
+    "type": "article",
+    "file": ""
+  }
+]

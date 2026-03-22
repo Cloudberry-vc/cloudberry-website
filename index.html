@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudberry VC | Europe's First Dedicated Semiconductor VC</title>
+    <meta name="description" content="Europe's first dedicated semiconductor venture capital fund. €30M fund investing €400k-€1M into pre-seed and seed startups working on semiconductors, photonics or advanced materials.">
+    <link rel="icon" href="assets/berry_icon.png" type="image/png">
+    <!-- Arial system font, no external fonts needed -->
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --space-blue: #202647;
+            --space-blue-light: #2a3157;
+            --space-blue-dark: #181d38;
+            --cloudberry-yellow: #FFBD48;
+            --cloudberry-yellow-soft: rgba(255,189,72,0.15);
+            --jade: #007A6E;
+            --jade-soft: rgba(0,122,110,0.12);
+            --muted: #8090A8;
+            --white: #E8EBF2;
+            --light-gray: #D8DCE6;
+            --off-white: #DEE2EC;
+            --body-text: #2A2F45;
+        }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--body-text);
+            background: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.2;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            padding: 20px 0;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Dark mode (default — on hero & dark sections) */
+        nav.scrolled {
+            background: rgba(32, 38, 71, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 12px 0;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+        }
+
+        /* Light mode (on light-background sections) */
+        nav.light-mode {
+            background: rgba(232, 235, 242, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 12px 0;
+            box-shadow: 0 4px 30px rgba(32,38,71,0.06);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo swap */
+        .nav-logo { position: relative; display: flex; align-items: center; }
+        .nav-logo img {
+            height: 32px;
+            transition: opacity 0.5s ease, height 0.3s ease;
+        }
+        .nav-logo .logo-dark {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            opacity: 0;
+        }
+        nav.light-mode .logo-light { opacity: 0; }
+        nav.light-mode .logo-dark { opacity: 1; }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: color 0.5s, opacity 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover { opacity: 1; }
+
+        /* Light mode: dark text */
+        nav.light-mode .nav-links a {
+            color: rgba(32, 38, 71, 0.7);
+        }
+
+        nav.light-mode .nav-links a:hover {
+            color: var(--space-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--cloudberry-yellow);
+            transition: width 0.3s ease, background 0.5s ease;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        /* Active section indicator */
+        .nav-links a.active {
+            color: rgba(255,255,255,1);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+            background: var(--cloudberry-yellow);
+        }
+
+        nav.light-mode .nav-links a.active {
+            color: var(--space-blue);
+        }
+
+        nav.light-mode .nav-links a.active::after {
+            background: var(--jade);
+        }
+
+        /* CTA button */
+        .nav-cta {
+            background: var(--cloudberry-yellow) !important;
+            color: var(--space-blue) !important;
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-weight: 600 !important;
+            opacity: 1 !important;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.5s !important;
+        }
+
+        nav.light-mode .nav-cta {
+            background: var(--space-blue) !important;
+            color: #FFFFFF !important;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(255,189,72,0.4);
+        }
+
+        nav.light-mode .nav-cta:hover {
+            box-shadow: 0 4px 15px rgba(32,38,71,0.25);
+        }
+
+        .nav-cta::after { display: none !important; }
+
+        /* Mobile menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            transition: all 0.5s;
+        }
+
+        nav.light-mode .hamburger span {
+            background: var(--space-blue);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(165deg, var(--space-blue) 0%, var(--space-blue-dark) 50%, #141929 100%);
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* ===== GLOBAL GRID OVERLAY ===== */
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .grid-overlay::before {
+            content: '';
+            position: absolute;
+            inset: -80px;
+            background-image:
+                linear-gradient(rgba(128,144,168,0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(128,144,168,0.07) 1px, transparent 1px);
+            background-size: 80px 80px;
+            animation: gridMove 25s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(80px, 80px); }
+        }
+
+        /* Hero-specific background for orbs only */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        /* Floating orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(0, 122, 110, 0.12);
+            top: -10%;
+            right: -5%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 189, 72, 0.08);
+            bottom: -10%;
+            left: -5%;
+            animation-delay: -4s;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 122, 110, 0.08);
+            top: 40%;
+            left: 50%;
+            animation-delay: -2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -20px) scale(1.05); }
+            66% { transform: translate(-20px, 15px) scale(0.95); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding-top: 120px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,189,72,0.12);
+            border: 1px solid rgba(255,189,72,0.25);
+            color: var(--cloudberry-yellow);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 8px 18px;
+            border-radius: 100px;
+            margin-bottom: 32px;
+        }
+
+        .hero-tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--cloudberry-yellow);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: #FFFFFF;
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 .accent {
+            color: var(--cloudberry-yellow);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            margin-bottom: 48px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 600px;
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-value {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--cloudberry-yellow);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            font-weight: 400;
+        }
+
+        /* Wave divider */
+        .wave-divider {
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .wave-divider svg {
+            display: block;
+            width: 100%;
+            height: 200px;
+        }
+
+        .wave-path-1 {
+            animation: waveMove1 8s ease-in-out infinite;
+        }
+
+        .wave-path-2 {
+            animation: waveMove2 6s ease-in-out infinite;
+        }
+
+        .wave-path-3 {
+            animation: waveMove3 10s ease-in-out infinite;
+        }
+
+        @keyframes waveMove1 {
+            0%, 100% { d: path("M0,60 C150,120 350,10 550,80 C750,140 950,20 1150,80 C1350,140 1550,10 1800,60 L1800,200 L0,200 Z"); }
+            50% { d: path("M0,90 C150,20 350,130 550,50 C750,10 950,130 1150,50 C1350,10 1550,120 1800,90 L1800,200 L0,200 Z"); }
+        }
+
+        @keyframes waveMove2 {
+            0%, 100% { d: path("M0,100 C250,60 500,140 800,90 C1000,50 1300,130 1800,100 L1800,200 L0,200 Z"); }
+            50% { d: path("M0,85 C250,130 500,50 800,110 C1000,140 1300,60 1800,85 L1800,200 L0,200 Z"); }
+        }
+
+        @keyframes waveMove3 {
+            0%, 100% { d: path("M0,130 C200,100 450,160 700,120 C950,90 1200,155 1450,120 C1600,100 1750,140 1800,130 L1800,200 L0,200 Z"); }
+            50% { d: path("M0,120 C200,155 450,90 700,135 C950,160 1200,95 1450,135 C1600,155 1750,105 1800,120 L1800,200 L0,200 Z"); }
+        }
+
+        /* Wave animations for enter/exit transitions (160px viewbox) */
+        .wave-a1 { animation: waveA1 9s ease-in-out infinite; }
+        .wave-a2 { animation: waveA2 7s ease-in-out infinite; }
+        .wave-a3 { animation: waveA3 11s ease-in-out infinite; }
+
+        @keyframes waveA1 {
+            0%, 100% { d: path("M0,50 C180,100 380,15 580,65 C780,115 980,25 1180,65 C1380,110 1580,20 1800,50 L1800,160 L0,160 Z"); }
+            50% { d: path("M0,70 C180,20 380,110 580,45 C780,10 980,100 1180,50 C1380,15 1580,95 1800,70 L1800,160 L0,160 Z"); }
+        }
+
+        @keyframes waveA2 {
+            0%, 100% { d: path("M0,80 C280,50 520,110 780,75 C980,45 1280,105 1800,80 L1800,160 L0,160 Z"); }
+            50% { d: path("M0,70 C280,105 520,40 780,85 C980,110 1280,45 1800,70 L1800,160 L0,160 Z"); }
+        }
+
+        @keyframes waveA3 {
+            0%, 100% { d: path("M0,105 C220,85 470,125 720,100 C970,75 1220,120 1470,100 C1620,90 1740,115 1800,105 L1800,160 L0,160 Z"); }
+            50% { d: path("M0,100 C220,120 470,75 720,105 C970,125 1220,80 1470,105 C1620,120 1740,90 1800,100 L1800,160 L0,160 Z"); }
+        }
+
+        /* Variant B — slightly different timing for variety */
+        .wave-b1 { animation: waveB1 10s ease-in-out infinite; }
+        .wave-b2 { animation: waveB2 8s ease-in-out infinite; }
+        .wave-b3 { animation: waveB3 12s ease-in-out infinite; }
+
+        @keyframes waveB1 {
+            0%, 100% { d: path("M0,55 C200,105 400,10 600,60 C800,110 1000,15 1200,60 C1400,105 1600,15 1800,55 L1800,160 L0,160 Z"); }
+            50% { d: path("M0,75 C200,15 400,105 600,50 C800,10 1000,100 1200,55 C1400,15 1600,100 1800,75 L1800,160 L0,160 Z"); }
+        }
+
+        @keyframes waveB2 {
+            0%, 100% { d: path("M0,85 C300,55 550,115 800,80 C1050,50 1300,110 1800,85 L1800,160 L0,160 Z"); }
+            50% { d: path("M0,75 C300,110 550,45 800,85 C1050,115 1300,50 1800,75 L1800,160 L0,160 Z"); }
+        }
+
+        @keyframes waveB3 {
+            0%, 100% { d: path("M0,110 C240,90 480,130 720,105 C960,80 1200,125 1440,105 C1620,95 1740,118 1800,110 L1800,160 L0,160 Z"); }
+            50% { d: path("M0,105 C240,125 480,80 720,108 C960,130 1200,82 1440,108 C1620,125 1740,92 1800,105 L1800,160 L0,160 Z"); }
+        }
+
+        /* Variant C — for footer */
+        .wave-c1 { animation: waveC1 9s ease-in-out infinite; }
+        .wave-c2 { animation: waveC2 7s ease-in-out infinite; }
+        .wave-c3 { animation: waveC3 11s ease-in-out infinite; }
+
+        @keyframes waveC1 {
+            0%, 100% { d: path("M0,45 C160,95 360,5 560,55 C760,100 960,10 1160,55 C1360,95 1560,10 1800,45 L1800,160 L0,160 Z"); }
+            50% { d: path("M0,65 C160,10 360,100 560,40 C760,5 960,90 1160,45 C1360,5 1560,90 1800,65 L1800,160 L0,160 Z"); }
+        }
+
+        @keyframes waveC2 {
+            0%, 100% { d: path("M0,75 C260,45 500,105 760,70 C960,40 1260,100 1800,75 L1800,160 L0,160 Z"); }
+            50% { d: path("M0,65 C260,100 500,35 760,78 C960,105 1260,40 1800,65 L1800,160 L0,160 Z"); }
+        }
+
+        @keyframes waveC3 {
+            0%, 100% { d: path("M0,100 C200,80 440,120 700,95 C940,70 1180,115 1420,95 C1600,85 1730,110 1800,100 L1800,160 L0,160 Z"); }
+            50% { d: path("M0,95 C200,115 440,72 700,100 C940,120 1180,75 1420,100 C1600,118 1730,85 1800,95 L1800,160 L0,160 Z"); }
+        }
+
+        /* ===== SECTION STYLES ===== */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--jade);
+            margin-bottom: 16px;
+        }
+
+        .section-tag::before {
+            content: '';
+            width: 32px;
+            height: 2px;
+            background: var(--jade);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--space-blue);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: var(--muted);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* ===== VALUE PROPS ===== */
+        .value-props {
+            background: var(--off-white);
+        }
+
+        .props-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .prop-card {
+            background: rgba(255,255,255,0.45);
+            padding: 40px 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(32,38,71,0.08);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prop-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--jade), var(--cloudberry-yellow));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .prop-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(32,38,71,0.08);
+        }
+
+        .prop-card:hover::before { opacity: 1; }
+
+        .prop-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .prop-icon.yellow { background: var(--cloudberry-yellow-soft); }
+        .prop-icon.jade { background: var(--jade-soft); }
+
+        .prop-card h3 {
+            font-size: 1.2rem;
+            color: var(--space-blue);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .prop-card p {
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* ===== WHY EUROPE ===== */
+        .why-europe {
+            background: var(--space-blue);
+            position: relative;
+            overflow: hidden;
+            padding-top: 160px;
+            padding-bottom: 180px;
+        }
+
+        /* Animated wave transitions (reusable) */
+        .wave-enter {
+            position: absolute;
+            top: -2px;
+            left: 0;
+            width: 100%;
+            line-height: 0;
+            transform: rotate(180deg);
+            overflow: hidden;
+        }
+
+        .wave-enter svg,
+        .wave-exit svg {
+            display: block;
+            width: 100%;
+            height: 160px;
+        }
+
+        .wave-exit {
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            line-height: 0;
+            overflow: hidden;
+        }
+
+        .why-europe .section-tag { color: var(--cloudberry-yellow); }
+        .why-europe .section-tag::before { background: var(--cloudberry-yellow); }
+        .why-europe .section-title { color: #FFFFFF; }
+
+        .why-europe-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+            margin-top: 48px;
+        }
+
+        .why-europe-text p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .why-europe-text p:first-of-type {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: 400;
+        }
+
+        .europe-quote {
+            position: relative;
+            background: rgba(255,255,255,0.05);
+            border-left: 3px solid var(--cloudberry-yellow);
+            padding: 32px;
+            border-radius: 0 16px 16px 0;
+            margin-top: 20px;
+        }
+
+        .europe-quote p {
+            font-size: 1.3rem !important;
+            color: #FFFFFF !important;
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.6 !important;
+        }
+
+        .europe-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .europe-stat-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 28px 32px;
+            transition: all 0.3s;
+        }
+
+        .europe-stat-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,189,72,0.2);
+        }
+
+        .europe-stat-card h4 {
+            color: var(--cloudberry-yellow);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .europe-stat-card p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ===== INVESTMENT AREAS ===== */
+        .invest-areas {
+            background: var(--off-white);
+        }
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 60px;
+        }
+
+        .area-card {
+            background: rgba(255,255,255,0.45);
+            border-radius: 20px;
+            padding: 44px 36px;
+            border: 1px solid rgba(32,38,71,0.08);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .area-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 48px rgba(32,38,71,0.1);
+        }
+
+        .area-number {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: rgba(32,38,71,0.04);
+            line-height: 1;
+            margin-bottom: 16px;
+            transition: color 0.4s ease;
+        }
+
+        .area-card:hover .area-number {
+            color: rgba(255,189,72,0.35);
+        }
+
+        .area-card h3 {
+            font-size: 1.35rem;
+            color: var(--space-blue);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .area-card .area-tagline {
+            font-style: normal;
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .area-card p.area-desc {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .area-card .area-line {
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cloudberry-yellow), var(--jade));
+            border-radius: 2px;
+            margin-bottom: 24px;
+            transition: width 0.4s;
+        }
+
+        .area-card:hover .area-line { width: 80px; }
+
+        /* ===== TEAM ===== */
+        .team {
+            background: var(--white);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+            margin-top: 60px;
+        }
+
+        /* Team card container */
+        .team-flip {
+            height: 420px;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .team-flip-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Front: always visible */
+        .team-flip-front {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(165deg, var(--space-blue) 0%, var(--space-blue-dark) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .team-photo {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center top;
+            transition: opacity 0.5s ease;
+        }
+
+        .team-flip:hover .team-photo {
+            opacity: 0.3;
+        }
+
+        /* Gradient placeholder when no photo, shows initials */
+        .team-photo-placeholder {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(165deg, var(--space-blue) 0%, #1a2040 40%, var(--jade) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .team-flip:hover .team-photo-placeholder {
+            opacity: 0.3;
+        }
+
+        .team-photo-placeholder .initials {
+            font-size: 5rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.08);
+            letter-spacing: 0.05em;
+            user-select: none;
+        }
+
+        .team-front-info {
+            position: relative;
+            z-index: 2;
+            padding: 28px 32px;
+            background: linear-gradient(transparent, rgba(24,29,56,0.95) 40%);
+        }
+
+        .team-front-info h3 {
+            font-size: 1.3rem;
+            color: #FFFFFF;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .team-front-info .role {
+            font-size: 0.85rem;
+            color: var(--cloudberry-yellow);
+            font-weight: 500;
+        }
+
+        .team-front-info .flag {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .flip-hint { display: none; }
+
+        /* Back: bio overlay that slides up on hover */
+        .team-flip-back {
+            position: absolute;
+            inset: 0;
+            background: rgba(24, 29, 56, 0.92);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            z-index: 3;
+        }
+
+        .team-flip:hover .team-flip-back {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .team-back-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .team-back-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--jade), var(--cloudberry-yellow));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: white;
+            flex-shrink: 0;
+            font-weight: 600;
+        }
+
+        .team-back-header h3 {
+            font-size: 1.1rem;
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .team-back-header .role {
+            font-size: 0.8rem;
+            color: var(--cloudberry-yellow);
+            font-weight: 500;
+        }
+
+        .team-flip-back .email {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--cloudberry-yellow);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 14px;
+            transition: color 0.2s;
+        }
+
+        .team-flip-back .email:hover { color: #e5a530; }
+
+        .team-flip-back .bio {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+        }
+
+        .team-section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 48px;
+            margin-bottom: -32px;
+            text-align: center;
+        }
+
+        .team-grid-centered {
+            max-width: 780px;
+            margin-left: auto;
+            margin-right: auto;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .team-grid-centered .team-flip {
+            height: 420px;
+        }
+
+        .team-grid-centered .team-photo {
+            background-position: center 15%;
+        }
+
+        /* ===== BLOG / NEWS ===== */
+        .news {
+            background: var(--off-white);
+            position: relative;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 28px;
+            margin-top: 60px;
+        }
+
+        .news-card {
+            background: rgba(255,255,255,0.45);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(32,38,71,0.08);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(32,38,71,0.08);
+        }
+
+        .news-card-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--space-blue), var(--space-blue-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .news-card-image .placeholder-icon {
+            font-size: 3rem;
+            opacity: 0.3;
+        }
+
+        .news-card-body {
+            padding: 28px;
+        }
+
+        .news-card-date {
+            font-size: 0.8rem;
+            color: var(--muted);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .news-card-body h3 {
+            font-size: 1.2rem;
+            color: var(--space-blue);
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .news-card-body p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .news-card-link {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--jade);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.3s;
+        }
+
+        .news-card:hover .news-card-link { gap: 10px; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--space-blue);
+            color: #FFFFFF;
+            padding: 120px 0 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Footer uses the generic .wave-enter class */
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand img {
+            height: 28px;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 340px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul { list-style: none; }
+
+        .footer-col li { margin-bottom: 12px; }
+
+        .footer-col a {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover { color: var(--cloudberry-yellow); }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255,255,255,0.3);
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-bottom .social-links a {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-bottom .social-links a:hover {
+            color: var(--cloudberry-yellow);
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .why-europe-content { grid-template-columns: 1fr; }
+            .areas-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            section { padding: 70px 0; }
+
+            .hamburger { display: flex; }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: var(--space-blue);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 28px;
+                z-index: 999;
+            }
+
+            .nav-links.open { display: flex; }
+
+            .nav-links a { font-size: 1.2rem; opacity: 1; }
+
+            .hero-stats { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+            .props-grid { grid-template-columns: 1fr; }
+
+            .areas-grid { grid-template-columns: 1fr; }
+
+            .team-grid { grid-template-columns: 1fr; }
+
+            .news-grid { grid-template-columns: 1fr; }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .prop-card { padding: 28px 24px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-stats { grid-template-columns: 1fr 1fr 1fr; }
+            .stat-value { font-size: 1.6rem; }
+        }
+
+        /* ===== SMOOTH CURSOR GLOW (desktop only) ===== */
+        .cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(255,189,72,0.04) 0%, transparent 70%);
+            z-index: 0;
+            transition: transform 0.3s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .cursor-glow { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Global grid overlay -->
+    <div class="grid-overlay"></div>
+
+    <!-- Cursor glow effect -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <a href="#" class="nav-logo">
+                <img src="assets/logo_vc_light.png" alt="Cloudberry VC" class="logo-light">
+                <img src="assets/logo_vc_dark.png" alt="Cloudberry VC" class="logo-dark">
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero">About</a></li>
+                <li><a href="#about">Our Thesis</a></li>
+                <li><a href="#invest">Focus Areas</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="mailto:rene@cloudberry.vc" class="nav-cta">Get in Touch</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-tag">Investing in Europe's Future</div>
+                <h1>Europe's First Dedicated <span class="accent">Semiconductor</span> VC</h1>
+                <p class="hero-subtitle">Because semiconductor startups deserve a semiconductor VC. We invest early in the companies building the foundation of computing.</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-value">€30M</div>
+                        <div class="stat-label">Fund Size</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">€400K–1M</div>
+                        <div class="stat-label">Ticket Size</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">Pre-Seed</div>
+                        <div class="stat-label">& Seed Stage</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Animated waves -->
+        <div class="wave-divider">
+            <svg viewBox="0 0 1800 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="wave-path-1" d="M0,60 C150,120 350,10 550,80 C750,140 950,20 1150,80 C1350,140 1550,10 1800,60 L1800,200 L0,200 Z" fill="rgba(0,122,110,0.18)"/>
+                <path class="wave-path-2" d="M0,100 C250,60 500,140 800,90 C1000,50 1300,130 1800,100 L1800,200 L0,200 Z" fill="rgba(255,189,72,0.12)"/>
+                <path class="wave-path-3" d="M0,130 C200,100 450,160 700,120 C950,90 1200,155 1450,120 C1600,100 1750,140 1800,130 L1800,200 L0,200 Z" fill="#DEE2EC"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Value Propositions -->
+    <section class="value-props" id="about">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-tag">Our Thesis</div>
+                <h2 class="section-title">Built for Semiconductor Founders</h2>
+                <p class="section-subtitle">Deep domain expertise, strategic industry connections, and capital designed for the unique needs of hardware startups.</p>
+            </div>
+            <div class="props-grid">
+                <div class="prop-card reveal reveal-delay-1">
+                    <div class="prop-icon yellow">⚡</div>
+                    <h3>Early Stage Focus</h3>
+                    <p>€30M fund investing €400K to €1M into pre-seed and seed startups working on semiconductors, photonics or advanced materials.</p>
+                </div>
+                <div class="prop-card reveal reveal-delay-2">
+                    <div class="prop-icon jade">🇪🇺</div>
+                    <h3>European Conviction</h3>
+                    <p>We invest mainly in Europe because we have the R&D talent but until now have lacked specialist early-stage semi investors.</p>
+                </div>
+                <div class="prop-card reveal reveal-delay-3">
+                    <div class="prop-icon yellow">🏭</div>
+                    <h3>Strategic LPs</h3>
+                    <p>Backed by GlobalFoundries &amp; Radiant Opto-Electronics, giving founders access to industrial know-how, tech roadmaps and manufacturing networks.</p>
+                </div>
+                <div class="prop-card reveal reveal-delay-4">
+                    <div class="prop-icon jade">🔬</div>
+                    <h3>Operational Experience</h3>
+                    <p>Deep technical and commercial experience across the semiconductor supply chain with ASML, Heptagon, Bosch, and ams Osram.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Europe -->
+    <section class="why-europe" id="approach">
+        <div class="wave-enter">
+            <svg viewBox="0 0 1800 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="wave-a1" d="M0,50 C180,100 380,15 580,65 C780,115 980,25 1180,65 C1380,110 1580,20 1800,50 L1800,160 L0,160 Z" fill="rgba(0,122,110,0.12)"/>
+                <path class="wave-a2" d="M0,80 C280,50 520,110 780,75 C980,45 1280,105 1800,80 L1800,160 L0,160 Z" fill="rgba(255,189,72,0.08)"/>
+                <path class="wave-a3" d="M0,105 C220,85 470,125 720,100 C970,75 1220,120 1470,100 C1620,90 1740,115 1800,105 L1800,160 L0,160 Z" fill="#DEE2EC"/>
+            </svg>
+        </div>
+
+        <div class="container">
+            <div class="reveal">
+                <div class="section-tag">Europe as Our Core</div>
+                <h2 class="section-title">Why Europe</h2>
+            </div>
+
+            <div class="why-europe-content">
+                <div class="why-europe-text reveal">
+                    <p>Europe has a choice. The continent that pioneered the industrial revolution now risks becoming its footnote. Not from lack of talent or expertise but from failure of will and ambition.</p>
+                    <p>We invest in European prosperity because computing is the bedrock of economic growth. Every major industry runs on semiconductors. Every breakthrough in medicine, energy, transport and communications depends on advances in processing power.</p>
+                    <p>This isn't a vertical to put a little bit of money towards. Semiconductors are everything. Europe invented much of this technology within living memory. It can lead again if we choose to do so.</p>
+
+                    <div class="europe-quote">
+                        <p>"We want to see the next trillion dollar company in Europe. We think it will be a computing hardware company. We are here to back the founders who are going to build it."</p>
+                    </div>
+                </div>
+
+                <div class="europe-visual reveal reveal-delay-2">
+                    <div class="europe-stat-card">
+                        <h4>Global R&D Talent</h4>
+                        <p>Europe has world-class research institutions and engineering talent in semiconductors, photonics and advanced materials.</p>
+                    </div>
+                    <div class="europe-stat-card">
+                        <h4>Industrial Heritage</h4>
+                        <p>Home to ASML, NXP, Infineon, STMicroelectronics, and hundreds of deep tech research centres and fabs.</p>
+                    </div>
+                    <div class="europe-stat-card">
+                        <h4>The Missing Piece</h4>
+                        <p>Europe has everything it needs to win globally in semiconductors. What it has been missing is dedicated, specialist early-stage capital.</p>
+                    </div>
+                    <div class="europe-stat-card">
+                        <h4>Policy Tailwinds</h4>
+                        <p>The EU Chips Act and national semiconductor strategies are creating unprecedented momentum for European chip companies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bottom wave out of Why Europe -->
+        <div class="wave-exit">
+            <svg viewBox="0 0 1800 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="wave-b1" d="M0,55 C200,105 400,10 600,60 C800,110 1000,15 1200,60 C1400,105 1600,15 1800,55 L1800,160 L0,160 Z" fill="rgba(0,122,110,0.15)"/>
+                <path class="wave-b2" d="M0,85 C300,55 550,115 800,80 C1050,50 1300,110 1800,85 L1800,160 L0,160 Z" fill="rgba(255,189,72,0.1)"/>
+                <path class="wave-b3" d="M0,110 C240,90 480,130 720,105 C960,80 1200,125 1440,105 C1620,95 1740,118 1800,110 L1800,160 L0,160 Z" fill="#DEE2EC"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Investment Areas -->
+    <section class="invest-areas" id="invest">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-tag">Focus Areas</div>
+                <h2 class="section-title">What We Invest In</h2>
+                <p class="section-subtitle">Three interconnected domains at the heart of semiconductor innovation. We invest across the full value chain: from the design software and simulation tools that architect new chips, to the equipment and measurement systems that make production possible, all the way to the devices, materials and integration platforms that power the end product.</p>
+            </div>
+
+            <div class="areas-grid">
+                <div class="area-card reveal reveal-delay-1">
+                    <div class="area-number">01</div>
+                    <div class="area-line"></div>
+                    <h3>Semiconductors</h3>
+                    <p class="area-tagline">Compute &amp; Electronics</p>
+                    <p class="area-desc">We invest in compute and control platforms that deliver more performance per watt and reshape where and how computation happens, from space, to datacentres, wearables, and medical devices.</p>
+                </div>
+
+                <div class="area-card reveal reveal-delay-2">
+                    <div class="area-number">02</div>
+                    <div class="area-line"></div>
+                    <h3>Photonics</h3>
+                    <p class="area-tagline">Connectivity &amp; Sensing</p>
+                    <p class="area-desc">We back photonic and mixed electro-optic systems that move, measure and process information: from high-bandwidth communications to imaging, diagnostics and instrumentation.</p>
+                </div>
+
+                <div class="area-card reveal reveal-delay-3">
+                    <div class="area-number">03</div>
+                    <div class="area-line"></div>
+                    <h3>Advanced Materials</h3>
+                    <p class="area-tagline">Equipment, Design Tools &amp; Metrology</p>
+                    <p class="area-desc">We invest in advanced materials, equipment, design tools and metrology that extend what fabs and manufacturers can do, turning lab-scale innovations into robust, repeatable production.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="team" id="team">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-tag">The Team</div>
+                <h2 class="section-title">Who We Are</h2>
+                <p class="section-subtitle">Operators, investors and researchers with deep roots across the semiconductor supply chain.</p>
+            </div>
+
+            <div class="team-grid">
+                <!--
+                ============================================================
+                HOW TO ADD A TEAM PHOTO:
+
+                Replace the .team-photo-placeholder div with:
+                <div class="team-photo" style="background-image: url('assets/rene.jpg');"></div>
+
+                Just drop the photo in assets/ and update the filename.
+                ============================================================
+                -->
+
+                <!-- René Kromhof -->
+                <div class="team-flip reveal reveal-delay-1">
+                    <div class="team-flip-inner">
+                        <div class="team-flip-front">
+                            <div class="team-photo" style="background-image: url('assets/Cloudberry-Rene-Kromhof-3-1024x683.jpg');"></div>
+                            <div class="flip-hint">↻</div>
+                            <div class="team-front-info">
+                                <h3>René Kromhof</h3>
+                                <span class="role">Founding Partner</span>
+                                <span class="flag">&nbsp;· 🇳🇱</span>
+                            </div>
+                        </div>
+                        <div class="team-flip-back">
+                            <div class="team-back-header">
+                                <div>
+                                    <h3>René Kromhof</h3>
+                                    <span class="role">Founding Partner</span>
+                                </div>
+                            </div>
+                            <a href="mailto:rene@cloudberry.vc" class="email">✉ rene@cloudberry.vc</a>
+                            <p class="bio">Before Cloudberry, René served on the leadership team at Heptagon, a global leader in optical sensors, scaling the company from a handful of employees into a global powerhouse. His tenure culminated in Heptagon's acquisition by ams AG in 2017. He began his career in engineering and product management at ASML.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Veera Pietikäinen -->
+                <div class="team-flip reveal reveal-delay-2">
+                    <div class="team-flip-inner">
+                        <div class="team-flip-front">
+                            <div class="team-photo" style="background-image: url('assets/Cloudberry-Veera-Pietikainen-scaled_v2-1024x683.jpg');"></div>
+                            <div class="flip-hint">↻</div>
+                            <div class="team-front-info">
+                                <h3>Veera Pietikäinen</h3>
+                                <span class="role">Founding Partner</span>
+                                <span class="flag">&nbsp;· 🇫🇮</span>
+                            </div>
+                        </div>
+                        <div class="team-flip-back">
+                            <div class="team-back-header">
+                                <div>
+                                    <h3>Veera Pietikäinen</h3>
+                                    <span class="role">Founding Partner</span>
+                                </div>
+                            </div>
+                            <a href="mailto:veera@cloudberry.vc" class="email">✉ veera@cloudberry.vc</a>
+                            <p class="bio">Veera has nearly a decade of experience supporting early-stage teams and deep tech companies. Since 2019, she has been involved in the deep tech space across investments, portfolio support, legal and fund administration. She has also advised companies as a fractional CFO.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lawrence Lundy-Bryan -->
+                <div class="team-flip reveal reveal-delay-3">
+                    <div class="team-flip-inner">
+                        <div class="team-flip-front">
+                            <div class="team-photo" style="background-image: url('assets/Cloudberry-Lawrence-Lundy-1024x683.jpg');"></div>
+                            <div class="flip-hint">↻</div>
+                            <div class="team-front-info">
+                                <h3>Lawrence Lundy-Bryan</h3>
+                                <span class="role">General Partner</span>
+                                <span class="flag">&nbsp;· 🇬🇧</span>
+                            </div>
+                        </div>
+                        <div class="team-flip-back">
+                            <div class="team-back-header">
+                                <div>
+                                    <h3>Lawrence Lundy-Bryan</h3>
+                                    <span class="role">General Partner</span>
+                                </div>
+                            </div>
+                            <a href="mailto:lawrence@cloudberry.vc" class="email">✉ lawrence@cloudberry.vc</a>
+                            <p class="bio">Always early to a market opportunity: crypto in 2015 and Deep Tech in 2020. Lawrence believes the greatest opportunity in the next decade is semiconductors. Most interested in photonic memory, compound semi, and edge computing. He writes speculative fiction at State of the Future.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Venture Partners -->
+            <div class="team-section-label reveal">Venture Partners</div>
+            <div class="team-grid team-grid-centered">
+                <!-- Tuomas Hollman -->
+                <div class="team-flip reveal reveal-delay-1">
+                    <div class="team-flip-inner">
+                        <div class="team-flip-front">
+                            <div class="team-photo" style="background-image: url('assets/Cloudberry-Tuomas-Hollman-1024x683.jpg');"></div>
+                            <div class="team-front-info">
+                                <h3>Tuomas Hollman</h3>
+                                <span class="role">Venture Partner</span>
+                                <span class="flag">&nbsp;· 🇩🇪</span>
+                            </div>
+                        </div>
+                        <div class="team-flip-back">
+                            <div class="team-back-header">
+                                <div>
+                                    <h3>Tuomas Hollman</h3>
+                                    <span class="role">Venture Partner</span>
+                                </div>
+                            </div>
+                            <p class="bio">VP and Head of the Business Area Optics at Bosch Sensortec. 25+ years of experience in the semiconductor industry across IC design, system engineering, product management and full business unit ownership. Previously held senior roles at Texas Instruments and MaxLinear.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lukas Steinmann -->
+                <div class="team-flip reveal reveal-delay-2">
+                    <div class="team-flip-inner">
+                        <div class="team-flip-front">
+                            <div class="team-photo" style="background-image: url('assets/Cloudberry-Lukas-Steinmann-1024x683.jpg');"></div>
+                            <div class="team-front-info">
+                                <h3>Lukas Steinmann</h3>
+                                <span class="role">Venture Partner</span>
+                                <span class="flag">&nbsp;· 🇨🇭</span>
+                            </div>
+                        </div>
+                        <div class="team-flip-back">
+                            <div class="team-back-header">
+                                <div>
+                                    <h3>Lukas Steinmann</h3>
+                                    <span class="role">Venture Partner</span>
+                                </div>
+                            </div>
+                            <p class="bio">Based in Zurich and active across Egon Zehnder's Industrial and Technology &amp; AI practice groups. Previously ams Osram AG's SVP and Head of modules and solutions, and VP &amp; Head of Strategy at Heptagon in Singapore.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News / Blog -->
+    <section class="news" id="news">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-tag">Latest</div>
+                <h2 class="section-title">News &amp; Insights</h2>
+                <p class="section-subtitle">Thoughts on semiconductors, European deep tech, and the future of computing.</p>
+            </div>
+
+            <!-- Dynamic news grid — loaded from posts/posts.json -->
+            <div class="news-grid" id="newsGrid"></div>
+
+            <div style="text-align:center; margin-top:48px;" class="reveal">
+                <a href="news.html" style="display:inline-flex; align-items:center; gap:8px; background:var(--space-blue); color:#fff; padding:14px 32px; border-radius:100px; font-weight:600; font-size:0.95rem; transition:transform 0.2s, box-shadow 0.2s;">
+                    All News & Insights <span>&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="wave-enter">
+            <svg viewBox="0 0 1800 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="wave-c1" d="M0,45 C160,95 360,5 560,55 C760,100 960,10 1160,55 C1360,95 1560,10 1800,45 L1800,160 L0,160 Z" fill="rgba(0,122,110,0.12)"/>
+                <path class="wave-c2" d="M0,75 C260,45 500,105 760,70 C960,40 1260,100 1800,75 L1800,160 L0,160 Z" fill="rgba(255,189,72,0.08)"/>
+                <path class="wave-c3" d="M0,100 C200,80 440,120 700,95 C940,70 1180,115 1420,95 C1600,85 1730,110 1800,100 L1800,160 L0,160 Z" fill="#DEE2EC"/>
+            </svg>
+        </div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="assets/logo_vc_light.png" alt="Cloudberry VC">
+                    <p>Europe's first dedicated semiconductor VC. Backing the founders building the future of computing from Europe.</p>
+                    <p style="margin-top:16px;font-size:0.85rem;">
+                        c/o Maria01<br>
+                        Lapinlahdenkatu 16<br>
+                        00180 Helsinki, Finland
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <ul>
+                        <li><a href="#hero">About</a></li>
+                        <li><a href="#about">Our Thesis</a></li>
+                        <li><a href="#invest">Focus Areas</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="news.html">News</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="mailto:rene@cloudberry.vc">rene@cloudberry.vc</a></li>
+                        <li><a href="mailto:veera@cloudberry.vc">veera@cloudberry.vc</a></li>
+                        <li><a href="mailto:lawrence@cloudberry.vc">lawrence@cloudberry.vc</a></li>
+                        <li><a href="https://cloudberry.vc/privacy-policy/" target="_blank">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Cloudberry VC. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/company/cloudberryvc/" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== SECTION-AWARE NAV =====
+        const navbar = document.getElementById('navbar');
+        const navLinksAll = document.querySelectorAll('.nav-links a[href^="#"]');
+
+        // Define which sections have dark backgrounds (nav should stay dark-mode there)
+        const darkSections = ['hero', 'approach']; // hero and "Why Europe"
+
+        // All trackable sections for active link highlighting
+        const sections = document.querySelectorAll('section[id], footer');
+
+        function updateNav() {
+            const scrollY = window.scrollY;
+            const navHeight = navbar.offsetHeight;
+            const triggerPoint = scrollY + navHeight + 20; // point just below the nav
+
+            // Determine which section the nav is currently overlapping
+            let currentSection = null;
+            let isOverDark = true;
+
+            sections.forEach(section => {
+                const top = section.offsetTop;
+                const bottom = top + section.offsetHeight;
+
+                if (triggerPoint >= top && triggerPoint < bottom) {
+                    currentSection = section.id || 'footer';
+                    isOverDark = darkSections.includes(section.id);
+                }
+            });
+
+            // Toggle nav appearance
+            if (scrollY < 50) {
+                // At top: transparent, dark mode
+                navbar.classList.remove('scrolled', 'light-mode');
+            } else if (isOverDark) {
+                navbar.classList.add('scrolled');
+                navbar.classList.remove('light-mode');
+            } else {
+                navbar.classList.add('light-mode');
+                navbar.classList.remove('scrolled');
+            }
+
+            // Footer = dark too
+            const footer = document.querySelector('footer');
+            if (footer) {
+                const fTop = footer.offsetTop;
+                if (triggerPoint >= fTop) {
+                    navbar.classList.add('scrolled');
+                    navbar.classList.remove('light-mode');
+                }
+            }
+
+            // Update active link
+            navLinksAll.forEach(link => link.classList.remove('active'));
+
+            // Find the current visible section for nav highlighting
+            let activeId = null;
+            sections.forEach(section => {
+                const top = section.offsetTop - navHeight - 100;
+                const bottom = top + section.offsetHeight;
+                if (scrollY >= top && scrollY < bottom && section.id) {
+                    activeId = section.id;
+                }
+            });
+
+            if (activeId) {
+                navLinksAll.forEach(link => {
+                    if (link.getAttribute('href') === '#' + activeId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // Throttle scroll for performance
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    updateNav();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Run on load
+        updateNav();
+
+        // ===== MOBILE MENU =====
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+
+        // ===== SCROLL REVEAL =====
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ===== CURSOR GLOW (desktop) =====
+        const glow = document.getElementById('cursorGlow');
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', (e) => {
+                glow.style.transform = `translate(${e.clientX - 200}px, ${e.clientY - 200}px)`;
+            });
+        }
+
+        // ===== SMOOTH ANCHOR SCROLLING =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ===== COUNTER ANIMATION =====
+        function animateCounters() {
+            document.querySelectorAll('.stat-value').forEach(counter => {
+                counter.style.opacity = '1';
+            });
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(animateCounters, 500);
+        });
+
+        // ===== DYNAMIC BLOG POSTS (from posts/posts.json) =====
+        function categoryIcon(cat) {
+            const icons = {
+                'Fund News': '\u{1F4E2}',
+                'Deep Dive': '\u{1F52C}',
+                'Thesis': '\u{1F9ED}',
+                'Portfolio': '\u{1F680}',
+                'Industry': '\u{2699}\uFE0F',
+                'Opinion': '\u{1F4A1}'
+            };
+            return `<span style="font-size:3rem;opacity:0.25;">${icons[cat] || icons['Deep Dive']}</span>`;
+        }
+
+        function formatPostDate(dateStr) {
+            const d = new Date(dateStr + 'T00:00:00');
+            return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        function getPostUrl(post) {
+            if (post.type === 'html' && post.file) return 'posts/' + post.file;
+            return 'post.html?id=' + post.id;
+        }
+
+        async function loadBlogPosts() {
+            try {
+                const res = await fetch('posts/posts.json?t=' + Date.now());
+                const posts = await res.json();
+                if (!posts || posts.length === 0) return;
+
+                posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                const grid = document.getElementById('newsGrid');
+                const maxShow = 6;
+                const showing = posts.slice(0, maxShow);
+
+                showing.forEach((post, i) => {
+                    const delay = (i % 3) + 1;
+                    const card = document.createElement('a');
+                    card.href = getPostUrl(post);
+                    card.className = `news-card reveal reveal-delay-${delay}`;
+                    card.innerHTML = `
+                        <div class="news-card-image">
+                            ${post.coverImage
+                                ? `<img src="${post.coverImage}" alt="" style="width:100%;height:100%;object-fit:cover;">`
+                                : `<span style="opacity:1;">${categoryIcon(post.category)}</span>`
+                            }
+                            ${post.category ? `<span style="position:absolute;top:12px;left:12px;background:rgba(255,189,72,0.85);backdrop-filter:blur(8px);color:var(--space-blue);font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:6px;">${post.category}</span>` : ''}
+                        </div>
+                        <div class="news-card-body">
+                            <p class="news-card-date">${formatPostDate(post.date)}</p>
+                            <h3>${post.title}</h3>
+                            <p>${post.summary}</p>
+                            <span class="news-card-link">Read more <span>&rarr;</span></span>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                    setTimeout(() => observer.observe(card), 50);
+                });
+
+            } catch (e) {
+                console.log('Could not load posts:', e);
+            }
+        }
+
+        loadBlogPosts();
+    </script>
+</body>
+</html>

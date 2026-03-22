@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudberry VC | Blog Admin</title>
+    <link rel="icon" href="assets/berry_icon.png" type="image/png">
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --space-blue: #202647;
+            --cloudberry-yellow: #FFBD48;
+            --jade: #007A6E;
+            --muted: #8090A8;
+            --off-white: #DEE2EC;
+            --white: #E8EBF2;
+            --danger: #e74c3c;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--white);
+            color: #2A2F45;
+            line-height: 1.6;
+        }
+
+        /* ===== LOGIN ===== */
+        .login-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(165deg, var(--space-blue) 0%, #141929 100%);
+        }
+
+        .login-box {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+        }
+
+        .login-box img { height: 32px; margin-bottom: 32px; }
+        .login-box h2 { color: #fff; font-size: 1.3rem; margin-bottom: 8px; }
+        .login-box p { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-bottom: 28px; }
+
+        .login-box input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
+            outline: none;
+            transition: border-color 0.3s;
+            margin-bottom: 16px;
+        }
+
+        .login-box input:focus { border-color: var(--cloudberry-yellow); }
+        .login-box input::placeholder { color: rgba(255,255,255,0.35); }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--cloudberry-yellow);
+            color: var(--space-blue);
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(255,189,72,0.4);
+        }
+
+        .login-error { color: #ff6b6b; font-size: 0.85rem; margin-top: 12px; display: none; }
+
+        /* ===== ADMIN PANEL ===== */
+        .admin-panel { display: none; min-height: 100vh; }
+
+        .admin-header {
+            background: var(--space-blue);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-header .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header img { height: 24px; }
+
+        .admin-header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .admin-header .logout-btn {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+        }
+
+        .admin-header .logout-btn:hover { color: var(--cloudberry-yellow); }
+
+        /* Content area */
+        .admin-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .admin-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .admin-toolbar h2 { font-size: 1.5rem; color: var(--space-blue); }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover { transform: translateY(-1px); }
+
+        .btn-primary { background: var(--jade); color: #fff; }
+        .btn-primary:hover { box-shadow: 0 4px 15px rgba(0,122,110,0.3); }
+
+        .btn-yellow { background: var(--cloudberry-yellow); color: var(--space-blue); }
+        .btn-yellow:hover { box-shadow: 0 4px 15px rgba(255,189,72,0.3); }
+
+        .btn-danger { background: var(--danger); color: #fff; }
+        .btn-danger:hover { box-shadow: 0 4px 15px rgba(231,76,60,0.3); }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(32,38,71,0.2);
+            color: var(--space-blue);
+        }
+
+        .btn-sm { padding: 6px 14px; font-size: 0.8rem; }
+
+        /* Post list */
+        .post-list { list-style: none; }
+
+        .post-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            background: rgba(255,255,255,0.5);
+            border: 1px solid rgba(32,38,71,0.08);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            transition: box-shadow 0.2s;
+        }
+
+        .post-item:hover { box-shadow: 0 4px 20px rgba(32,38,71,0.06); }
+
+        .post-item-info h3 {
+            font-size: 1rem;
+            color: var(--space-blue);
+            margin-bottom: 4px;
+        }
+
+        .post-item-meta {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .post-item-meta span { margin-right: 12px; }
+
+        .post-item-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .empty-msg {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--muted);
+        }
+
+        /* Editor view */
+        .editor-view { display: none; }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--space-blue);
+            margin-bottom: 6px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid rgba(32,38,71,0.15);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: rgba(255,255,255,0.6);
+            color: var(--space-blue);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--jade);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* Quill overrides */
+        .ql-container { font-family: Arial, sans-serif; font-size: 1rem; }
+        .ql-editor { min-height: 300px; line-height: 1.8; }
+        .ql-toolbar.ql-snow { border-radius: 10px 10px 0 0; border-color: rgba(32,38,71,0.15); }
+        .ql-container.ql-snow { border-radius: 0 0 10px 10px; border-color: rgba(32,38,71,0.15); }
+
+        /* HTML editor */
+        .html-editor {
+            width: 100%;
+            min-height: 400px;
+            padding: 16px;
+            border: 1px solid rgba(32,38,71,0.15);
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            background: #1e1e2e;
+            color: #cdd6f4;
+            resize: vertical;
+            outline: none;
+            tab-size: 2;
+        }
+
+        .html-editor:focus { border-color: var(--jade); }
+
+        /* Editor footer */
+        .editor-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            margin-top: 24px;
+            border-top: 1px solid rgba(32,38,71,0.08);
+        }
+
+        .editor-footer-right { display: flex; gap: 12px; }
+
+        /* Mode toggle */
+        .mode-toggle {
+            display: flex;
+            gap: 0;
+            margin-bottom: 20px;
+        }
+
+        .mode-toggle button {
+            padding: 10px 20px;
+            border: 1px solid rgba(32,38,71,0.15);
+            background: rgba(255,255,255,0.4);
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mode-toggle button:first-child { border-radius: 10px 0 0 10px; }
+        .mode-toggle button:last-child { border-radius: 0 10px 10px 0; }
+
+        .mode-toggle button.active {
+            background: var(--space-blue);
+            color: #fff;
+            border-color: var(--space-blue);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--space-blue);
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 9999;
+        }
+
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { background: var(--jade); }
+        .toast.error { background: var(--danger); }
+
+        /* Delete modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 9998;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.show { display: flex; }
+
+        .modal {
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal h3 { color: var(--space-blue); margin-bottom: 12px; }
+        .modal p { color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
+        .modal-actions { display: flex; gap: 12px; justify-content: center; }
+
+        @media (max-width: 768px) {
+            .form-row { grid-template-columns: 1fr; }
+            .post-item { flex-direction: column; gap: 12px; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOGIN -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <img src="assets/logo_vc_light.png" alt="Cloudberry VC">
+            <h2>Blog Admin</h2>
+            <p>Enter the admin password to continue.</p>
+            <input type="password" id="passwordInput" placeholder="Password" onkeydown="if(event.key==='Enter')attemptLogin()">
+            <button class="login-btn" onclick="attemptLogin()">Sign In</button>
+            <p class="login-error" id="loginError">Incorrect password.</p>
+        </div>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <div class="container">
+                <a href="index.html"><img src="assets/logo_vc_light.png" alt="Cloudberry VC"></a>
+                <div class="admin-header-right">
+                    <a href="news.html" style="color:rgba(255,255,255,0.6);font-size:0.85rem;">View Site</a>
+                    <button class="logout-btn" onclick="logout()">Sign Out</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- POST LIST VIEW -->
+        <div class="admin-content" id="listView">
+            <div class="admin-toolbar">
+                <h2>Posts</h2>
+                <button class="btn btn-primary" onclick="newPost()">+ New Post</button>
+            </div>
+            <ul class="post-list" id="postList"></ul>
+            <div class="empty-msg" id="emptyMsg" style="display:none;">
+                <p>No posts yet. Click "New Post" to write your first article.</p>
+            </div>
+        </div>
+
+        <!-- EDITOR VIEW -->
+        <div class="admin-content editor-view" id="editorView">
+            <div class="admin-toolbar">
+                <h2 id="editorTitle">New Post</h2>
+                <button class="btn btn-outline" onclick="backToList()">Back to Posts</button>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="postTitle" placeholder="Post title">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="postDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="postCategory">
+                            <option value="">Select category...</option>
+                            <option value="Fund News">Fund News</option>
+                            <option value="Deep Dive">Deep Dive</option>
+                            <option value="Thesis">Thesis</option>
+                            <option value="Portfolio">Portfolio</option>
+                            <option value="Industry">Industry</option>
+                            <option value="Opinion">Opinion</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Summary (shown on cards)</label>
+                <textarea id="postSummary" rows="2" placeholder="A short summary for the news card..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Cover Image URL (optional)</label>
+                <input type="text" id="postCover" placeholder="https://...">
+            </div>
+
+            <div class="mode-toggle">
+                <button class="active" id="modeArticle" onclick="setMode('article')">Rich Text Article</button>
+                <button id="modeHtml" onclick="setMode('html')">Custom HTML Page</button>
+            </div>
+
+            <!-- Rich text editor -->
+            <div id="articleEditor">
+                <div id="quillEditor"></div>
+            </div>
+
+            <!-- HTML editor -->
+            <div id="htmlEditor" style="display:none;">
+                <p style="font-size:0.8rem;color:var(--muted);margin-bottom:12px;">
+                    Write a complete HTML page. It will be saved as its own .html file in posts/.
+                    Include your own styles, scripts, interactive elements, etc.
+                </p>
+                <textarea class="html-editor" id="htmlContent" placeholder="<!DOCTYPE html>&#10;<html>&#10;<head>...</head>&#10;<body>...</body>&#10;</html>"></textarea>
+            </div>
+
+            <div class="editor-footer">
+                <button class="btn btn-outline btn-sm" onclick="previewPost()">Preview</button>
+                <div class="editor-footer-right">
+                    <button class="btn btn-outline" onclick="backToList()">Cancel</button>
+                    <button class="btn btn-yellow" onclick="savePost()">Save & Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DELETE MODAL -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal">
+            <h3>Delete Post?</h3>
+            <p id="deleteMsg">This will remove the post from your local list. You will also need to delete the file from your repository.</p>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="closeDeleteModal()">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+    <script>
+        // ===== AUTH =====
+        // Simple password hash (not security critical, just keeps casual visitors out)
+        const PASS_HASH = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'; // "password"
+
+        async function hashPassword(pw) {
+            const enc = new TextEncoder().encode(pw);
+            const buf = await crypto.subtle.digest('SHA-256', enc);
+            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function attemptLogin() {
+            const pw = document.getElementById('passwordInput').value;
+            const hash = await hashPassword(pw);
+            if (hash === PASS_HASH) {
+                sessionStorage.setItem('cb_admin', '1');
+                showAdmin();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('cb_admin');
+            location.reload();
+        }
+
+        function showAdmin() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            loadPostList();
+        }
+
+        // Check session on load
+        if (sessionStorage.getItem('cb_admin') === '1') showAdmin();
+
+        // ===== POST MANAGEMENT =====
+        let posts = [];
+        let editingId = null;
+        let deleteTargetId = null;
+        let currentMode = 'article';
+        let quill = null;
+
+        // Initialize Quill
+        function initQuill() {
+            if (quill) return;
+            quill = new Quill('#quillEditor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ header: [2, 3, false] }],
+                        ['bold', 'italic', 'underline'],
+                        ['link', 'image', 'video'],
+                        ['blockquote', 'code-block'],
+                        [{ list: 'ordered' }, { list: 'bullet' }],
+                        ['clean']
+                    ]
+                },
+                placeholder: 'Write your article...'
+            });
+        }
+
+        async function loadPostList() {
+            // Load from posts.json
+            try {
+                const res = await fetch('posts/posts.json?t=' + Date.now());
+                posts = await res.json();
+            } catch (e) {
+                posts = JSON.parse(localStorage.getItem('cb_admin_posts') || '[]');
+            }
+
+            renderPostList();
+        }
+
+        function renderPostList() {
+            const list = document.getElementById('postList');
+            const empty = document.getElementById('emptyMsg');
+
+            if (posts.length === 0) {
+                list.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            list.innerHTML = posts.map(p => `
+                <li class="post-item">
+                    <div class="post-item-info">
+                        <h3>${p.title}</h3>
+                        <div class="post-item-meta">
+                            <span>${p.date}</span>
+                            <span>${p.category || ''}</span>
+                            <span style="color:${p.type === 'html' ? 'var(--jade)' : 'var(--muted)'}">${p.type === 'html' ? 'Custom HTML' : 'Article'}</span>
+                        </div>
+                    </div>
+                    <div class="post-item-actions">
+                        <button class="btn btn-outline btn-sm" onclick="editPost('${p.id}')">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="showDeleteModal('${p.id}')">Delete</button>
+                    </div>
+                </li>
+            `).join('');
+        }
+
+        // ===== EDITOR =====
+        function newPost() {
+            editingId = null;
+            document.getElementById('editorTitle').textContent = 'New Post';
+            document.getElementById('postTitle').value = '';
+            document.getElementById('postDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('postCategory').value = '';
+            document.getElementById('postSummary').value = '';
+            document.getElementById('postCover').value = '';
+            setMode('article');
+            initQuill();
+            quill.setContents([]);
+            document.getElementById('htmlContent').value = '';
+            showEditor();
+        }
+
+        function editPost(id) {
+            const post = posts.find(p => p.id === id);
+            if (!post) return;
+
+            editingId = id;
+            document.getElementById('editorTitle').textContent = 'Edit Post';
+            document.getElementById('postTitle').value = post.title;
+            document.getElementById('postDate').value = post.date;
+            document.getElementById('postCategory').value = post.category || '';
+            document.getElementById('postSummary').value = post.summary;
+            document.getElementById('postCover').value = post.coverImage || '';
+
+            setMode(post.type || 'article');
+            initQuill();
+
+            if (post.type === 'html') {
+                // Try to load the HTML file content
+                if (post.file) {
+                    fetch('posts/' + post.file + '?t=' + Date.now())
+                        .then(r => r.text())
+                        .then(html => { document.getElementById('htmlContent').value = html; })
+                        .catch(() => { document.getElementById('htmlContent').value = ''; });
+                }
+            } else {
+                // Try to load article content
+                fetch('posts/' + id + '.json?t=' + Date.now())
+                    .then(r => r.json())
+                    .then(data => { quill.root.innerHTML = data.content || ''; })
+                    .catch(() => { quill.root.innerHTML = ''; });
+            }
+
+            showEditor();
+        }
+
+        function showEditor() {
+            document.getElementById('listView').style.display = 'none';
+            document.getElementById('editorView').style.display = 'block';
+        }
+
+        function backToList() {
+            document.getElementById('editorView').style.display = 'none';
+            document.getElementById('listView').style.display = 'block';
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.getElementById('modeArticle').classList.toggle('active', mode === 'article');
+            document.getElementById('modeHtml').classList.toggle('active', mode === 'html');
+            document.getElementById('articleEditor').style.display = mode === 'article' ? 'block' : 'none';
+            document.getElementById('htmlEditor').style.display = mode === 'html' ? 'block' : 'none';
+            if (mode === 'article') initQuill();
+        }
+
+        // ===== SAVE =====
+        function slugify(text) {
+            return text.toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '')
+                .substring(0, 60);
+        }
+
+        function savePost() {
+            const title = document.getElementById('postTitle').value.trim();
+            const date = document.getElementById('postDate').value;
+            const category = document.getElementById('postCategory').value.trim();
+            const summary = document.getElementById('postSummary').value.trim();
+            const coverImage = document.getElementById('postCover').value.trim();
+
+            if (!title) { showToast('Please enter a title.', 'error'); return; }
+            if (!date) { showToast('Please select a date.', 'error'); return; }
+            if (!summary) { showToast('Please enter a summary.', 'error'); return; }
+
+            const id = editingId || slugify(title);
+            const isHtml = currentMode === 'html';
+            const fileName = isHtml ? id + '.html' : '';
+
+            // Build post metadata
+            const postMeta = {
+                id: id,
+                title: title,
+                summary: summary,
+                date: date,
+                category: category,
+                coverImage: coverImage,
+                type: currentMode,
+                file: fileName
+            };
+
+            // Update posts array
+            const existingIdx = posts.findIndex(p => p.id === id);
+            if (existingIdx >= 0) {
+                posts[existingIdx] = postMeta;
+            } else {
+                posts.push(postMeta);
+            }
+
+            // Save to localStorage as backup
+            localStorage.setItem('cb_admin_posts', JSON.stringify(posts));
+
+            // Generate downloadable files
+            const files = [];
+
+            // 1. Updated posts.json
+            const postsJson = JSON.stringify(posts, null, 2);
+            files.push({ name: 'posts.json', content: postsJson, type: 'application/json' });
+
+            // 2. Post content file
+            if (isHtml) {
+                const htmlContent = document.getElementById('htmlContent').value;
+                files.push({ name: id + '.html', content: htmlContent, type: 'text/html' });
+            } else {
+                const articleContent = quill.root.innerHTML;
+                const contentJson = JSON.stringify({ id: id, content: articleContent }, null, 2);
+                files.push({ name: id + '.json', content: contentJson, type: 'application/json' });
+            }
+
+            // Download all files
+            files.forEach(f => downloadFile(f.name, f.content, f.type));
+
+            renderPostList();
+            backToList();
+            showToast('Saved! Place downloaded files in your posts/ folder, then push to GitHub.', 'success');
+        }
+
+        function downloadFile(name, content, type) {
+            const blob = new Blob([content], { type: type });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // ===== DELETE =====
+        function showDeleteModal(id) {
+            deleteTargetId = id;
+            const post = posts.find(p => p.id === id);
+            document.getElementById('deleteMsg').textContent =
+                `Delete "${post.title}"? This removes it from the post list. You should also delete the file from your repository.`;
+            document.getElementById('deleteModal').classList.add('show');
+        }
+
+        function closeDeleteModal() {
+            deleteTargetId = null;
+            document.getElementById('deleteModal').classList.remove('show');
+        }
+
+        function confirmDelete() {
+            if (!deleteTargetId) return;
+            posts = posts.filter(p => p.id !== deleteTargetId);
+            localStorage.setItem('cb_admin_posts', JSON.stringify(posts));
+
+            // Download updated posts.json
+            const postsJson = JSON.stringify(posts, null, 2);
+            downloadFile('posts.json', postsJson, 'application/json');
+
+            closeDeleteModal();
+            renderPostList();
+            showToast('Deleted. Replace posts.json in your repo and remove the post file.', 'success');
+        }
+
+        // ===== PREVIEW =====
+        function previewPost() {
+            if (currentMode === 'html') {
+                const html = document.getElementById('htmlContent').value;
+                const w = window.open('', '_blank');
+                w.document.write(html);
+                w.document.close();
+            } else {
+                const content = quill.root.innerHTML;
+                const title = document.getElementById('postTitle').value || 'Preview';
+                const summary = document.getElementById('postSummary').value || '';
+                const w = window.open('', '_blank');
+                w.document.write(`<!DOCTYPE html>
+<html><head><title>${title}</title>
+<style>
+body { font-family: Arial, sans-serif; max-width: 740px; margin: 40px auto; padding: 0 24px; color: #2A2F45; line-height: 1.8; }
+h1 { color: #202647; margin-bottom: 16px; }
+.summary { color: #8090A8; border-left: 3px solid #007A6E; padding-left: 20px; margin-bottom: 40px; font-size: 1.1rem; }
+img { max-width: 100%; border-radius: 8px; }
+blockquote { border-left: 3px solid #FFBD48; padding-left: 20px; color: #8090A8; font-style: italic; }
+</style></head><body>
+<h1>${title}</h1>
+<p class="summary">${summary}</p>
+<div>${content}</div>
+</body></html>`);
+                w.document.close();
+            }
+        }
+
+        // ===== TOAST =====
+        function showToast(msg, type = '') {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.className = 'toast show ' + type;
+            setTimeout(() => { toast.className = 'toast'; }, 4000);
+        }
+    </script>
+</body>
+</html>

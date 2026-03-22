@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Insights | Cloudberry VC</title>
+    <meta name="description" content="Thoughts on semiconductors, European deep tech, and the future of computing from Cloudberry VC.">
+    <link rel="icon" href="assets/berry_icon.png" type="image/png">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --space-blue: #202647;
+            --space-blue-light: #2a3157;
+            --cloudberry-yellow: #FFBD48;
+            --jade: #007A6E;
+            --muted: #8090A8;
+            --off-white: #DEE2EC;
+            --white: #E8EBF2;
+            --body-text: #2A2F45;
+        }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--white);
+            color: var(--body-text);
+            line-height: 1.6;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Nav */
+        .page-nav {
+            background: var(--space-blue);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .page-nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-nav img { height: 28px; }
+
+        .page-nav a.back-link {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .page-nav a.back-link:hover { color: var(--cloudberry-yellow); }
+
+        /* Hero header */
+        .news-hero {
+            background: linear-gradient(165deg, var(--space-blue) 0%, #141929 100%);
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+
+        .news-hero .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--cloudberry-yellow);
+            margin-bottom: 20px;
+        }
+
+        .news-hero .section-tag::before {
+            content: '';
+            width: 32px;
+            height: 2px;
+            background: var(--jade);
+        }
+
+        .news-hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--white);
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .news-hero p {
+            color: var(--muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Wave transition */
+        .wave-out {
+            position: relative;
+            height: 80px;
+            margin-top: -1px;
+            background: linear-gradient(165deg, var(--space-blue) 0%, #141929 100%);
+        }
+
+        .wave-out svg {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 80px;
+        }
+
+        /* Grid */
+        .news-listing {
+            padding: 60px 0 100px;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 28px;
+        }
+
+        .news-card {
+            background: rgba(255,255,255,0.45);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(32,38,71,0.08);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(32,38,71,0.08);
+        }
+
+        .news-card-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--space-blue), var(--space-blue-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .news-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .news-card-category {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(255,189,72,0.85);
+            backdrop-filter: blur(8px);
+            color: #202647;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .news-card-body {
+            padding: 28px;
+        }
+
+        .news-card-date {
+            font-size: 0.8rem;
+            color: var(--muted);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .news-card-body h3 {
+            font-size: 1.2rem;
+            color: var(--space-blue);
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .news-card-body p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .news-card-link {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--jade);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.3s;
+        }
+
+        .news-card:hover .news-card-link { gap: 10px; }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--muted);
+        }
+
+        .empty-state h3 {
+            color: var(--space-blue);
+            margin-bottom: 12px;
+        }
+
+        /* Grid overlay */
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .grid-overlay::before {
+            content: '';
+            position: absolute;
+            inset: -80px;
+            background-image:
+                linear-gradient(rgba(128,144,168,0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(128,144,168,0.07) 1px, transparent 1px);
+            background-size: 80px 80px;
+            animation: gridMove 25s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(80px, 80px); }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--space-blue);
+            padding: 60px 0 30px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+        }
+
+        .footer-content {
+            display: flex;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand { flex: 1.5; }
+        .footer-brand img { height: 28px; margin-bottom: 16px; }
+        .footer-brand p { max-width: 320px; line-height: 1.7; }
+        .footer-col { flex: 1; }
+        .footer-col h4 { color: var(--white); font-size: 0.9rem; margin-bottom: 16px; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 10px; }
+        .footer-col a { transition: color 0.2s; }
+        .footer-col a:hover { color: var(--cloudberry-yellow); }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .social-links a {
+            color: rgba(255,255,255,0.6);
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+        .social-links a:hover { color: var(--cloudberry-yellow); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .news-grid { grid-template-columns: 1fr; }
+            .footer-content { flex-direction: column; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-overlay"></div>
+
+    <nav class="page-nav">
+        <div class="container">
+            <a href="index.html"><img src="assets/logo_vc_light.png" alt="Cloudberry VC"></a>
+            <a href="index.html" class="back-link">Back to Home</a>
+        </div>
+    </nav>
+
+    <div class="news-hero">
+        <div class="container">
+            <div class="section-tag">Latest</div>
+            <h1>News & Insights</h1>
+            <p>Thoughts on semiconductors, European deep tech, and the future of computing.</p>
+        </div>
+    </div>
+
+    <div class="wave-out">
+        <svg viewBox="0 0 1800 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,0 C300,65 600,65 900,35 C1200,5 1500,55 1800,30 L1800,80 L0,80 Z" fill="var(--white)"/>
+        </svg>
+    </div>
+
+    <section class="news-listing">
+        <div class="container">
+            <div class="news-grid" id="newsGrid">
+                <div class="empty-state" id="emptyState" style="display:none;">
+                    <h3>No posts yet</h3>
+                    <p>Check back soon for insights on semiconductors, photonics, and European deep tech.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="assets/logo_vc_light.png" alt="Cloudberry VC">
+                    <p>Europe's first dedicated semiconductor VC. Backing the founders building the future of computing from Europe.</p>
+                    <p style="margin-top:16px;font-size:0.85rem;">
+                        c/o Maria01<br>
+                        Lapinlahdenkatu 16<br>
+                        00180 Helsinki, Finland
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <ul>
+                        <li><a href="index.html#hero">About</a></li>
+                        <li><a href="index.html#about">Our Thesis</a></li>
+                        <li><a href="index.html#invest">Focus Areas</a></li>
+                        <li><a href="index.html#team">Team</a></li>
+                        <li><a href="news.html">News</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="mailto:rene@cloudberry.vc">rene@cloudberry.vc</a></li>
+                        <li><a href="mailto:veera@cloudberry.vc">veera@cloudberry.vc</a></li>
+                        <li><a href="mailto:lawrence@cloudberry.vc">lawrence@cloudberry.vc</a></li>
+                        <li><a href="https://cloudberry.vc/privacy-policy/" target="_blank">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Cloudberry VC. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/company/cloudberryvc/" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function categoryIcon(cat) {
+            const icons = {
+                'Fund News': '\u{1F4E2}',
+                'Deep Dive': '\u{1F52C}',
+                'Thesis': '\u{1F9ED}',
+                'Portfolio': '\u{1F680}',
+                'Industry': '\u{2699}\uFE0F',
+                'Opinion': '\u{1F4A1}'
+            };
+            return `<span style="font-size:3rem;opacity:0.25;">${icons[cat] || icons['Deep Dive']}</span>`;
+        }
+
+        function formatDate(dateStr) {
+            const d = new Date(dateStr + 'T00:00:00');
+            return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        function getPostUrl(post) {
+            if (post.type === 'html' && post.file) {
+                return 'posts/' + post.file;
+            }
+            return 'post.html?id=' + post.id;
+        }
+
+        async function loadAllPosts() {
+            try {
+                const res = await fetch('posts/posts.json?t=' + Date.now());
+                const posts = await res.json();
+
+                if (!posts || posts.length === 0) {
+                    document.getElementById('emptyState').style.display = 'block';
+                    return;
+                }
+
+                // Sort by date descending
+                posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                const grid = document.getElementById('newsGrid');
+
+                posts.forEach((post, i) => {
+                    const card = document.createElement('a');
+                    card.href = getPostUrl(post);
+                    card.className = 'news-card';
+                    card.innerHTML = `
+                        <div class="news-card-image">
+                            ${post.coverImage
+                                ? `<img src="${post.coverImage}" alt="${post.title}">`
+                                : `<span style="opacity:1;">${categoryIcon(post.category)}</span>`
+                            }
+                            ${post.category ? `<span class="news-card-category">${post.category}</span>` : ''}
+                        </div>
+                        <div class="news-card-body">
+                            <p class="news-card-date">${formatDate(post.date)}</p>
+                            <h3>${post.title}</h3>
+                            <p>${post.summary}</p>
+                            <span class="news-card-link">Read more <span>&rarr;</span></span>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (e) {
+                console.error('Failed to load posts:', e);
+                document.getElementById('emptyState').style.display = 'block';
+            }
+        }
+
+        loadAllPosts();
+    </script>
+</body>
+</html>

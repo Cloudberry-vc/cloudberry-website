@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npx --version)",
+      "Bash(python3 -c \"import rembg; print\\(''rembg available''\\)\")",
+      "Bash(python3 -c \"from PIL import Image; print\\(''PIL available''\\)\")",
+      "Bash(pip3 install:*)",
+      "Bash(python3:*)",
+      "Bash(curl -s http://localhost:3456/posts/posts.json)",
+      "Bash(gh auth:*)",
+      "Bash(git --version)",
+      "Bash(brew --version)",
+      "Bash(brew install:*)",
+      "Bash(gh org:*)"
+    ]
+  }
+}
