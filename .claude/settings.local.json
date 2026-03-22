@@ -14,7 +14,10 @@
       "Bash(brew install:*)",
       "Bash(gh org:*)",
       "Bash(gh repo:*)",
-      "Bash(gh api:*)"
+      "Bash(gh api:*)",
+      "Bash(curl -s \"https://cloudberry-vc.github.io/cloudberry-website/index.html\")",
+      "Bash(curl -s \"https://cloudberry-vc.github.io/cloudberry-website/post.html\")",
+      "WebFetch(domain:cloudberry.vc)"
     ]
   }
 }
