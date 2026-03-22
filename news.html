@@ -39,11 +39,14 @@
 
         /* Nav */
         .page-nav {
-            background: var(--space-blue);
+            background: rgba(32, 38, 71, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             padding: 16px 0;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
         }
 
         .page-nav .container {
@@ -52,16 +55,30 @@
             align-items: center;
         }
 
-        .page-nav img { height: 28px; }
+        .page-nav img { height: 32px; }
 
         .page-nav a.back-link {
-            color: rgba(255,255,255,0.6);
-            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 0.82rem;
             font-weight: 500;
-            transition: color 0.2s;
+            letter-spacing: 0.2px;
+            padding: 8px 18px;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.04);
+            transition: all 0.25s;
+            backdrop-filter: blur(8px);
         }
 
-        .page-nav a.back-link:hover { color: var(--cloudberry-yellow); }
+        .page-nav a.back-link:hover {
+            color: var(--cloudberry-yellow);
+            border-color: rgba(255,189,72,0.25);
+            background: rgba(255,189,72,0.06);
+        }
 
         /* Hero header */
         .news-hero {
@@ -301,7 +318,7 @@
     <nav class="page-nav">
         <div class="container">
             <a href="index.html"><img src="assets/logo_vc_light.png" alt="Cloudberry VC"></a>
-            <a href="index.html" class="back-link">Back to Home</a>
+            <a href="index.html" class="back-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg> Back to Home</a>
         </div>
     </nav>
 

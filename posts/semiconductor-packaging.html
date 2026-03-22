@@ -12,11 +12,14 @@
     left: 0;
     right: 0;
     z-index: 10000;
-    padding: 14px 32px;
+    padding: 16px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(180deg, rgba(15,19,32,0.95) 0%, rgba(15,19,32,0.7) 70%, transparent 100%);
+    background: rgba(32, 38, 71, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.15);
     pointer-events: none;
     transition: opacity 0.4s;
   }
@@ -24,12 +27,12 @@
   .cb-nav-overlay * { pointer-events: auto; }
 
   .cb-nav-overlay img {
-    height: 22px;
-    opacity: 0.85;
+    height: 32px;
+    opacity: 1;
     transition: opacity 0.2s;
   }
 
-  .cb-nav-overlay img:hover { opacity: 1; }
+  .cb-nav-overlay img:hover { opacity: 0.85; }
 
   .cb-nav-back {
     display: inline-flex;
@@ -111,6 +114,8 @@
     position: relative;
     z-index: 2;
   }
+
+  .header > img { display: none; }
 
   .header::before {
     content: '';
