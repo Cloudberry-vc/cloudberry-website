@@ -396,91 +396,43 @@
             height: 200px;
         }
 
-        .wave-path-1 {
-            animation: waveMove1 8s ease-in-out infinite;
+        /* Wave animations using transform (iOS WebKit compatible) */
+        .wave-path-1, .wave-path-2, .wave-path-3,
+        .wave-a1, .wave-a2, .wave-a3,
+        .wave-b1, .wave-b2, .wave-b3,
+        .wave-c1, .wave-c2, .wave-c3 {
+            will-change: transform;
         }
 
-        .wave-path-2 {
-            animation: waveMove2 6s ease-in-out infinite;
+        .wave-path-1 { animation: waveShift1 8s ease-in-out infinite; }
+        .wave-path-2 { animation: waveShift2 6s ease-in-out infinite; }
+        .wave-path-3 { animation: waveShift3 10s ease-in-out infinite; }
+
+        .wave-a1 { animation: waveShift1 9s ease-in-out infinite; }
+        .wave-a2 { animation: waveShift2 7s ease-in-out infinite; }
+        .wave-a3 { animation: waveShift3 11s ease-in-out infinite; }
+
+        .wave-b1 { animation: waveShift1 10s ease-in-out infinite; }
+        .wave-b2 { animation: waveShift2 8s ease-in-out infinite; }
+        .wave-b3 { animation: waveShift3 12s ease-in-out infinite; }
+
+        .wave-c1 { animation: waveShift1 9s ease-in-out infinite; }
+        .wave-c2 { animation: waveShift2 7s ease-in-out infinite; }
+        .wave-c3 { animation: waveShift3 11s ease-in-out infinite; }
+
+        @keyframes waveShift1 {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(-25px) translateY(8px); }
         }
 
-        .wave-path-3 {
-            animation: waveMove3 10s ease-in-out infinite;
+        @keyframes waveShift2 {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(20px) translateY(-6px); }
         }
 
-        @keyframes waveMove1 {
-            0%, 100% { d: path("M0,60 C150,120 350,10 550,80 C750,140 950,20 1150,80 C1350,140 1550,10 1800,60 L1800,200 L0,200 Z"); }
-            50% { d: path("M0,90 C150,20 350,130 550,50 C750,10 950,130 1150,50 C1350,10 1550,120 1800,90 L1800,200 L0,200 Z"); }
-        }
-
-        @keyframes waveMove2 {
-            0%, 100% { d: path("M0,100 C250,60 500,140 800,90 C1000,50 1300,130 1800,100 L1800,200 L0,200 Z"); }
-            50% { d: path("M0,85 C250,130 500,50 800,110 C1000,140 1300,60 1800,85 L1800,200 L0,200 Z"); }
-        }
-
-        @keyframes waveMove3 {
-            0%, 100% { d: path("M0,130 C200,100 450,160 700,120 C950,90 1200,155 1450,120 C1600,100 1750,140 1800,130 L1800,200 L0,200 Z"); }
-            50% { d: path("M0,120 C200,155 450,90 700,135 C950,160 1200,95 1450,135 C1600,155 1750,105 1800,120 L1800,200 L0,200 Z"); }
-        }
-
-        /* Wave animations for enter/exit transitions (160px viewbox) */
-        .wave-a1 { animation: waveA1 9s ease-in-out infinite; }
-        .wave-a2 { animation: waveA2 7s ease-in-out infinite; }
-        .wave-a3 { animation: waveA3 11s ease-in-out infinite; }
-
-        @keyframes waveA1 {
-            0%, 100% { d: path("M0,50 C180,100 380,15 580,65 C780,115 980,25 1180,65 C1380,110 1580,20 1800,50 L1800,160 L0,160 Z"); }
-            50% { d: path("M0,70 C180,20 380,110 580,45 C780,10 980,100 1180,50 C1380,15 1580,95 1800,70 L1800,160 L0,160 Z"); }
-        }
-
-        @keyframes waveA2 {
-            0%, 100% { d: path("M0,80 C280,50 520,110 780,75 C980,45 1280,105 1800,80 L1800,160 L0,160 Z"); }
-            50% { d: path("M0,70 C280,105 520,40 780,85 C980,110 1280,45 1800,70 L1800,160 L0,160 Z"); }
-        }
-
-        @keyframes waveA3 {
-            0%, 100% { d: path("M0,105 C220,85 470,125 720,100 C970,75 1220,120 1470,100 C1620,90 1740,115 1800,105 L1800,160 L0,160 Z"); }
-            50% { d: path("M0,100 C220,120 470,75 720,105 C970,125 1220,80 1470,105 C1620,120 1740,90 1800,100 L1800,160 L0,160 Z"); }
-        }
-
-        /* Variant B — slightly different timing for variety */
-        .wave-b1 { animation: waveB1 10s ease-in-out infinite; }
-        .wave-b2 { animation: waveB2 8s ease-in-out infinite; }
-        .wave-b3 { animation: waveB3 12s ease-in-out infinite; }
-
-        @keyframes waveB1 {
-            0%, 100% { d: path("M0,55 C200,105 400,10 600,60 C800,110 1000,15 1200,60 C1400,105 1600,15 1800,55 L1800,160 L0,160 Z"); }
-            50% { d: path("M0,75 C200,15 400,105 600,50 C800,10 1000,100 1200,55 C1400,15 1600,100 1800,75 L1800,160 L0,160 Z"); }
-        }
-
-        @keyframes waveB2 {
-            0%, 100% { d: path("M0,85 C300,55 550,115 800,80 C1050,50 1300,110 1800,85 L1800,160 L0,160 Z"); }
-            50% { d: path("M0,75 C300,110 550,45 800,85 C1050,115 1300,50 1800,75 L1800,160 L0,160 Z"); }
-        }
-
-        @keyframes waveB3 {
-            0%, 100% { d: path("M0,110 C240,90 480,130 720,105 C960,80 1200,125 1440,105 C1620,95 1740,118 1800,110 L1800,160 L0,160 Z"); }
-            50% { d: path("M0,105 C240,125 480,80 720,108 C960,130 1200,82 1440,108 C1620,125 1740,92 1800,105 L1800,160 L0,160 Z"); }
-        }
-
-        /* Variant C — for footer */
-        .wave-c1 { animation: waveC1 9s ease-in-out infinite; }
-        .wave-c2 { animation: waveC2 7s ease-in-out infinite; }
-        .wave-c3 { animation: waveC3 11s ease-in-out infinite; }
-
-        @keyframes waveC1 {
-            0%, 100% { d: path("M0,45 C160,95 360,5 560,55 C760,100 960,10 1160,55 C1360,95 1560,10 1800,45 L1800,160 L0,160 Z"); }
-            50% { d: path("M0,65 C160,10 360,100 560,40 C760,5 960,90 1160,45 C1360,5 1560,90 1800,65 L1800,160 L0,160 Z"); }
-        }
-
-        @keyframes waveC2 {
-            0%, 100% { d: path("M0,75 C260,45 500,105 760,70 C960,40 1260,100 1800,75 L1800,160 L0,160 Z"); }
-            50% { d: path("M0,65 C260,100 500,35 760,78 C960,105 1260,40 1800,65 L1800,160 L0,160 Z"); }
-        }
-
-        @keyframes waveC3 {
-            0%, 100% { d: path("M0,100 C200,80 440,120 700,95 C940,70 1180,115 1420,95 C1600,85 1730,110 1800,100 L1800,160 L0,160 Z"); }
-            50% { d: path("M0,95 C200,115 440,72 700,100 C940,120 1180,75 1420,100 C1600,118 1730,85 1800,95 L1800,160 L0,160 Z"); }
+        @keyframes waveShift3 {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(-15px) translateY(5px); }
         }
 
         /* ===== SECTION STYLES ===== */
