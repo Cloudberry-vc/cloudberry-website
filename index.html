@@ -215,18 +215,18 @@
             overflow: hidden;
         }
 
-        /* Dark to light: gradient bleed at bottom of dark sections */
-        .hero::after {
-            content: '';
+        /* Angled section dividers (randomized by JS) */
+        .slant-div {
             position: absolute;
-            bottom: 0;
             left: 0;
             right: 0;
-            height: 40px;
-            background: linear-gradient(to bottom, transparent, var(--off-white));
+            height: var(--slant-h, 50px);
+            clip-path: var(--slant-clip, polygon(0 100%, 100% 0, 100% 100%));
             z-index: 4;
             pointer-events: none;
         }
+        .slant-div.bottom { bottom: -1px; }
+        .slant-div.top { top: -1px; }
 
         .hero-video {
             position: absolute;
@@ -457,7 +457,9 @@
         /* ===== VALUE PROPS ===== */
         .value-props {
             background: var(--off-white);
+            position: relative;
         }
+
 
         .props-grid {
             display: grid;
@@ -529,32 +531,8 @@
             overflow: hidden;
             padding-top: 160px;
             padding-bottom: 180px;
-        }
-
-        /* Light to dark: gradient bleed at top of why-europe */
-        .why-europe::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            background: linear-gradient(to bottom, var(--off-white), transparent);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* Dark to light: gradient bleed at bottom of why-europe */
-        .why-europe::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            background: linear-gradient(to bottom, transparent, var(--off-white));
-            z-index: 1;
-            pointer-events: none;
+            margin-top: -1px;
+            margin-bottom: -1px;
         }
 
         .why-europe .section-tag { color: var(--cloudberry-yellow); }
@@ -633,7 +611,9 @@
         /* ===== INVESTMENT AREAS ===== */
         .invest-areas {
             background: var(--off-white);
+            position: relative;
         }
+
 
         .areas-grid {
             display: grid;
@@ -707,7 +687,9 @@
         /* ===== TEAM ===== */
         .team {
             background: var(--white);
+            position: relative;
         }
+
 
         .team-grid {
             display: grid;
@@ -989,18 +971,6 @@
             overflow: hidden;
         }
 
-        /* Light to dark: gradient bleed at top of footer */
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            background: linear-gradient(to bottom, var(--off-white), transparent);
-            z-index: 1;
-            pointer-events: none;
-        }
 
         .footer-content {
             display: grid;
@@ -1245,6 +1215,7 @@
 
     <!-- Hero -->
     <section class="hero" id="hero">
+        <div class="slant-div bottom" data-slant data-color="var(--off-white)"></div>
         <video class="hero-video" autoplay muted loop playsinline poster="assets/hero-bg-poster.jpg">
             <source src="assets/hero-bg.mp4" type="video/mp4">
         </video>
@@ -1277,6 +1248,7 @@
 
     <!-- Value Propositions -->
     <section class="value-props" id="about">
+        <div class="slant-div bottom" data-slant data-color="var(--space-blue)"></div>
         <div class="container">
             <div class="reveal">
                 <div class="section-tag">Our Thesis</div>
@@ -1310,6 +1282,7 @@
 
     <!-- Why Europe -->
     <section class="why-europe" id="approach">
+        <div class="slant-div bottom" data-slant data-color="var(--off-white)"></div>
         <div class="container">
             <div class="reveal">
                 <div class="section-tag">Europe as Our Core</div>
@@ -1351,6 +1324,7 @@
 
     <!-- Investment Areas -->
     <section class="invest-areas" id="invest">
+        <div class="slant-div bottom" data-slant data-color="var(--white)"></div>
         <div class="container">
             <div class="reveal">
                 <div class="section-tag">Focus Areas</div>
@@ -1388,6 +1362,7 @@
 
     <!-- Team -->
     <section class="team" id="team">
+        <div class="slant-div bottom" data-slant data-color="var(--off-white)"></div>
         <div class="container">
             <div class="reveal">
                 <div class="section-tag">The Team</div>
@@ -1558,6 +1533,7 @@
 
     <!-- Footer -->
     <footer>
+        <div class="slant-div top" data-slant data-color="var(--off-white)"></div>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
@@ -1741,6 +1717,29 @@
 
         window.addEventListener('load', () => {
             setTimeout(animateCounters, 500);
+        });
+
+        // ===== RANDOM SLANT DIVIDERS =====
+        document.querySelectorAll('[data-slant]').forEach(el => {
+            const h = 30 + Math.random() * 30; // 30px to 60px
+            const dir = Math.random() > 0.5; // random left or right
+            const color = el.dataset.color || '#FFFFFF';
+            const isTop = el.classList.contains('top');
+
+            let clip;
+            if (isTop) {
+                clip = dir
+                    ? `polygon(0 0, 100% 0, 0 100%)`
+                    : `polygon(0 0, 100% 0, 100% 100%)`;
+            } else {
+                clip = dir
+                    ? `polygon(0 100%, 100% 0, 100% 100%)`
+                    : `polygon(0 0, 0 100%, 100% 100%)`;
+            }
+
+            el.style.setProperty('--slant-h', h + 'px');
+            el.style.setProperty('--slant-clip', clip);
+            el.style.background = color;
         });
 
         // ===== DYNAMIC BLOG POSTS (from posts/posts.json) =====
