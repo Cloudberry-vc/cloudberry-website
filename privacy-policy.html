@@ -31,16 +31,26 @@
 
         a { color: inherit; text-decoration: none; }
 
+        /* Angled section dividers (randomized by JS) */
+        .slant-div {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: var(--slant-h, 50px);
+            clip-path: var(--slant-clip, polygon(0 100%, 100% 0, 100% 100%));
+            z-index: 4;
+            pointer-events: none;
+        }
+        .slant-div.bottom { bottom: -1px; }
+        .slant-div.top { top: -1px; }
+
         /* Nav */
         .page-nav {
-            background: rgba(32, 38, 71, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: #202647;
             padding: 16px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
         }
 
         .page-nav .container {
@@ -79,8 +89,10 @@
 
         /* Hero header */
         .policy-hero {
-            background: linear-gradient(165deg, var(--space-blue) 0%, #141929 100%);
+            background: var(--space-blue);
             padding: 80px 0 60px;
+            position: relative;
+            overflow: hidden;
         }
 
         .policy-hero .container {
@@ -102,20 +114,6 @@
             font-size: 1rem;
         }
 
-        /* Wave transition */
-        .wave-out {
-            position: relative;
-            height: 80px;
-            margin-top: -1px;
-            background: linear-gradient(165deg, var(--space-blue) 0%, #141929 100%);
-        }
-
-        .wave-out svg {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 80px;
-        }
 
         /* Content */
         .policy-content {
@@ -222,7 +220,8 @@
         /* Footer */
         footer {
             background: var(--space-blue);
-            padding: 60px 0 30px;
+            padding: 80px 0 30px;
+            position: relative;
             color: rgba(255,255,255,0.6);
             font-size: 0.85rem;
         }
@@ -282,16 +281,11 @@
     </nav>
 
     <div class="policy-hero">
+        <div class="slant-div bottom" data-slant data-color="var(--white)"></div>
         <div class="container">
             <h1>Privacy & Cookie Policy</h1>
             <p>How Cloudberry VC Oy handles your data.</p>
         </div>
-    </div>
-
-    <div class="wave-out">
-        <svg viewBox="0 0 1800 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,0 C300,65 600,65 900,35 C1200,5 1500,55 1800,30 L1800,80 L0,80 Z" fill="var(--white)"/>
-        </svg>
     </div>
 
     <div class="policy-content">
@@ -388,6 +382,7 @@
     </div>
 
     <footer>
+        <div class="slant-div top" data-slant data-color="var(--white)"></div>
         <div class="footer-content">
             <div class="footer-brand">
                 <img src="assets/logo_vc_light.png" alt="Cloudberry VC">
@@ -426,5 +421,22 @@
         </div>
     </footer>
 
+    <script>
+        document.querySelectorAll('[data-slant]').forEach(el => {
+            const h = 30 + Math.random() * 30;
+            const dir = Math.random() > 0.5;
+            const color = el.dataset.color || '#FFFFFF';
+            const isTop = el.classList.contains('top');
+            let clip;
+            if (isTop) {
+                clip = dir ? 'polygon(0 0, 100% 0, 0 100%)' : 'polygon(0 0, 100% 0, 100% 100%)';
+            } else {
+                clip = dir ? 'polygon(0 100%, 100% 0, 100% 100%)' : 'polygon(0 0, 0 100%, 100% 100%)';
+            }
+            el.style.setProperty('--slant-h', h + 'px');
+            el.style.setProperty('--slant-clip', clip);
+            el.style.background = color;
+        });
+    </script>
 </body>
 </html>
