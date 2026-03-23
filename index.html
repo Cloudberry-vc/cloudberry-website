@@ -215,6 +215,19 @@
             overflow: hidden;
         }
 
+        /* Dark to light: gradient bleed at bottom of dark sections */
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, var(--off-white));
+            z-index: 4;
+            pointer-events: none;
+        }
+
         .hero-video {
             position: absolute;
             top: 0;
@@ -223,7 +236,7 @@
             height: 100%;
             object-fit: cover;
             z-index: 0;
-            opacity: 0.35;
+            opacity: 0.5;
         }
 
         .hero-video-overlay {
@@ -232,7 +245,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(165deg, rgba(32,38,71,0.85) 0%, rgba(20,25,41,0.75) 50%, rgba(20,25,41,0.9) 100%);
+            background: linear-gradient(165deg, rgba(32,38,71,0.7) 0%, rgba(20,25,41,0.55) 50%, rgba(20,25,41,0.75) 100%);
             z-index: 1;
         }
 
@@ -402,61 +415,6 @@
             font-weight: 400;
         }
 
-        /* Wave divider */
-        .wave-divider {
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            overflow: hidden;
-            line-height: 0;
-        }
-
-        .wave-divider svg {
-            display: block;
-            width: 100%;
-            height: 200px;
-        }
-
-        /* Wave animations using transform (iOS WebKit compatible) */
-        .wave-path-1, .wave-path-2, .wave-path-3,
-        .wave-a1, .wave-a2, .wave-a3,
-        .wave-b1, .wave-b2, .wave-b3,
-        .wave-c1, .wave-c2, .wave-c3 {
-            will-change: transform;
-        }
-
-        .wave-path-1 { animation: waveShift1 8s ease-in-out infinite; }
-        .wave-path-2 { animation: waveShift2 6s ease-in-out infinite; }
-        .wave-path-3 { animation: waveShift3 10s ease-in-out infinite; }
-
-        .wave-a1 { animation: waveShift1 9s ease-in-out infinite; }
-        .wave-a2 { animation: waveShift2 7s ease-in-out infinite; }
-        .wave-a3 { animation: waveShift3 11s ease-in-out infinite; }
-
-        .wave-b1 { animation: waveShift1 10s ease-in-out infinite; }
-        .wave-b2 { animation: waveShift2 8s ease-in-out infinite; }
-        .wave-b3 { animation: waveShift3 12s ease-in-out infinite; }
-
-        .wave-c1 { animation: waveShift1 9s ease-in-out infinite; }
-        .wave-c2 { animation: waveShift2 7s ease-in-out infinite; }
-        .wave-c3 { animation: waveShift3 11s ease-in-out infinite; }
-
-        @keyframes waveShift1 {
-            0%, 100% { transform: translateX(0) translateY(0); }
-            50% { transform: translateX(-25px) translateY(8px); }
-        }
-
-        @keyframes waveShift2 {
-            0%, 100% { transform: translateX(0) translateY(0); }
-            50% { transform: translateX(20px) translateY(-6px); }
-        }
-
-        @keyframes waveShift3 {
-            0%, 100% { transform: translateX(0) translateY(0); }
-            50% { transform: translateX(-15px) translateY(5px); }
-        }
-
         /* ===== SECTION STYLES ===== */
         section {
             padding: 100px 0;
@@ -573,31 +531,30 @@
             padding-bottom: 180px;
         }
 
-        /* Animated wave transitions (reusable) */
-        .wave-enter {
+        /* Light to dark: gradient bleed at top of why-europe */
+        .why-europe::before {
+            content: '';
             position: absolute;
-            top: -2px;
+            top: 0;
             left: 0;
-            width: 100%;
-            line-height: 0;
-            transform: rotate(180deg);
-            overflow: hidden;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--off-white), transparent);
+            z-index: 1;
+            pointer-events: none;
         }
 
-        .wave-enter svg,
-        .wave-exit svg {
-            display: block;
-            width: 100%;
-            height: 160px;
-        }
-
-        .wave-exit {
+        /* Dark to light: gradient bleed at bottom of why-europe */
+        .why-europe::after {
+            content: '';
             position: absolute;
-            bottom: -2px;
+            bottom: 0;
             left: 0;
-            width: 100%;
-            line-height: 0;
-            overflow: hidden;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, var(--off-white));
+            z-index: 1;
+            pointer-events: none;
         }
 
         .why-europe .section-tag { color: var(--cloudberry-yellow); }
@@ -1032,7 +989,18 @@
             overflow: hidden;
         }
 
-        /* Footer uses the generic .wave-enter class */
+        /* Light to dark: gradient bleed at top of footer */
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--off-white), transparent);
+            z-index: 1;
+            pointer-events: none;
+        }
 
         .footer-content {
             display: grid;
@@ -1305,14 +1273,6 @@
             </div>
         </div>
 
-        <!-- Animated waves -->
-        <div class="wave-divider">
-            <svg viewBox="0 0 1800 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                <path class="wave-path-1" d="M0,60 C150,120 350,10 550,80 C750,140 950,20 1150,80 C1350,140 1550,10 1800,60 L1800,200 L0,200 Z" fill="rgba(0,122,110,0.18)"/>
-                <path class="wave-path-2" d="M0,100 C250,60 500,140 800,90 C1000,50 1300,130 1800,100 L1800,200 L0,200 Z" fill="rgba(255,189,72,0.12)"/>
-                <path class="wave-path-3" d="M0,130 C200,100 450,160 700,120 C950,90 1200,155 1450,120 C1600,100 1750,140 1800,130 L1800,200 L0,200 Z" fill="#DEE2EC"/>
-            </svg>
-        </div>
     </section>
 
     <!-- Value Propositions -->
@@ -1350,14 +1310,6 @@
 
     <!-- Why Europe -->
     <section class="why-europe" id="approach">
-        <div class="wave-enter">
-            <svg viewBox="0 0 1800 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                <path class="wave-a1" d="M0,50 C180,100 380,15 580,65 C780,115 980,25 1180,65 C1380,110 1580,20 1800,50 L1800,160 L0,160 Z" fill="rgba(0,122,110,0.12)"/>
-                <path class="wave-a2" d="M0,80 C280,50 520,110 780,75 C980,45 1280,105 1800,80 L1800,160 L0,160 Z" fill="rgba(255,189,72,0.08)"/>
-                <path class="wave-a3" d="M0,105 C220,85 470,125 720,100 C970,75 1220,120 1470,100 C1620,90 1740,115 1800,105 L1800,160 L0,160 Z" fill="#DEE2EC"/>
-            </svg>
-        </div>
-
         <div class="container">
             <div class="reveal">
                 <div class="section-tag">Europe as Our Core</div>
@@ -1394,14 +1346,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Bottom wave out of Why Europe -->
-        <div class="wave-exit">
-            <svg viewBox="0 0 1800 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                <path class="wave-b1" d="M0,55 C200,105 400,10 600,60 C800,110 1000,15 1200,60 C1400,105 1600,15 1800,55 L1800,160 L0,160 Z" fill="rgba(0,122,110,0.15)"/>
-                <path class="wave-b2" d="M0,85 C300,55 550,115 800,80 C1050,50 1300,110 1800,85 L1800,160 L0,160 Z" fill="rgba(255,189,72,0.1)"/>
-                <path class="wave-b3" d="M0,110 C240,90 480,130 720,105 C960,80 1200,125 1440,105 C1620,95 1740,118 1800,110 L1800,160 L0,160 Z" fill="#DEE2EC"/>
-            </svg>
         </div>
     </section>
 
@@ -1614,13 +1558,6 @@
 
     <!-- Footer -->
     <footer>
-        <div class="wave-enter">
-            <svg viewBox="0 0 1800 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                <path class="wave-c1" d="M0,45 C160,95 360,5 560,55 C760,100 960,10 1160,55 C1360,95 1560,10 1800,45 L1800,160 L0,160 Z" fill="rgba(0,122,110,0.12)"/>
-                <path class="wave-c2" d="M0,75 C260,45 500,105 760,70 C960,40 1260,100 1800,75 L1800,160 L0,160 Z" fill="rgba(255,189,72,0.08)"/>
-                <path class="wave-c3" d="M0,100 C200,80 440,120 700,95 C940,70 1180,115 1420,95 C1600,85 1730,110 1800,100 L1800,160 L0,160 Z" fill="#DEE2EC"/>
-            </svg>
-        </div>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">

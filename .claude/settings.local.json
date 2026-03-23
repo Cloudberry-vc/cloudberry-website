@@ -17,7 +17,9 @@
       "Bash(gh api:*)",
       "Bash(curl -s \"https://cloudberry-vc.github.io/cloudberry-website/index.html\")",
       "Bash(curl -s \"https://cloudberry-vc.github.io/cloudberry-website/post.html\")",
-      "WebFetch(domain:cloudberry.vc)"
+      "WebFetch(domain:cloudberry.vc)",
+      "Bash(ffmpeg -i iStock-2153442382.mp4 -c:v libx264 -crf 28 -preset slow -vf \"scale=1920:-2\" -an -movflags +faststart hero-bg.mp4 -y)",
+      "Bash(ffmpeg -i hero-bg.mp4 -vframes 1 -q:v 3 hero-bg-poster.jpg -y)"
     ]
   }
 }
