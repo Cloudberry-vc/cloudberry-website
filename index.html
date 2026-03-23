@@ -26,7 +26,7 @@
             --body-text: #2A2F45;
         }
 
-        html { scroll-behavior: smooth; font-size: 16px; }
+        html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
 
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -218,7 +218,10 @@
         /* ===== GLOBAL GRID OVERLAY ===== */
         .grid-overlay {
             position: fixed;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
             z-index: 999;
             overflow: hidden;
@@ -227,7 +230,12 @@
         .grid-overlay::before {
             content: '';
             position: absolute;
-            inset: -80px;
+            top: -80px;
+            left: -80px;
+            right: 0;
+            bottom: 0;
+            width: calc(100% + 80px);
+            height: calc(100% + 80px);
             background-image:
                 linear-gradient(rgba(128,144,168,0.07) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(128,144,168,0.07) 1px, transparent 1px);
@@ -245,6 +253,7 @@
             position: absolute;
             inset: 0;
             overflow: hidden;
+            clip-path: inset(0);
         }
 
         /* Floating orbs */
@@ -1141,9 +1150,17 @@
         @media (max-width: 1024px) {
             .why-europe-content { grid-template-columns: 1fr; }
             .areas-grid { grid-template-columns: 1fr 1fr; }
+            .props-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 900px) {
+            .props-grid { grid-template-columns: 1fr; }
+            .orb { display: none; }
         }
 
         @media (max-width: 768px) {
+            .container { padding: 0 32px; }
+
             section { padding: 70px 0; }
 
             .hamburger { display: flex; }
@@ -1167,13 +1184,11 @@
 
             .nav-links a { font-size: 1.2rem; opacity: 1; }
 
-            .hero-stats { grid-template-columns: repeat(3, 1fr); gap: 20px; }
-
-            .props-grid { grid-template-columns: 1fr; }
+            .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 20px; }
 
             .areas-grid { grid-template-columns: 1fr; }
 
-            .team-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
 
             .news-grid { grid-template-columns: 1fr; }
 
@@ -1192,7 +1207,10 @@
         }
 
         @media (max-width: 480px) {
-            .hero-stats { grid-template-columns: 1fr 1fr 1fr; }
+            .container { padding: 0 20px; }
+            .props-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr; }
+            .hero-stats { grid-template-columns: 1fr 1fr; }
             .stat-value { font-size: 1.6rem; }
         }
 
