@@ -62,18 +62,13 @@
 
         /* Dark mode (default — on hero & dark sections) */
         nav.scrolled {
-            background: rgba(32, 38, 71, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: var(--space-blue);
             padding: 12px 0;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
         }
 
         /* Light mode (on light-background sections) */
         nav.light-mode {
-            background: rgba(232, 235, 242, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: var(--off-white);
             padding: 12px 0;
             box-shadow: 0 4px 30px rgba(32,38,71,0.06);
         }
@@ -1233,8 +1228,8 @@
                 <p class="hero-subtitle">Because semiconductor startups deserve a semiconductor VC. We invest early in the companies building the foundation of computing.</p>
                 <div class="hero-stats">
                     <div class="stat">
-                        <div class="stat-value" style="white-space:nowrap;">€400K to 1M</div>
-                        <div class="stat-label">Ticket Size</div>
+                        <div class="stat-value" style="white-space:nowrap;">Up to €1M</div>
+                        <div class="stat-label">Initial Ticket Size</div>
                     </div>
                     <div class="stat">
                         <div class="stat-value">(Pre-)Seed</div>
@@ -1370,17 +1365,8 @@
                 <p class="section-subtitle">Operators, investors and researchers with deep roots across the semiconductor supply chain.</p>
             </div>
 
+            <div class="team-section-label reveal">General Partners</div>
             <div class="team-grid">
-                <!--
-                ============================================================
-                HOW TO ADD A TEAM PHOTO:
-
-                Replace the .team-photo-placeholder div with:
-                <div class="team-photo" style="background-image: url('assets/rene.jpg');"></div>
-
-                Just drop the photo in assets/ and update the filename.
-                ============================================================
-                -->
 
                 <!-- René Kromhof -->
                 <div class="team-flip reveal reveal-delay-1">
@@ -1440,7 +1426,7 @@
                             <div class="flip-hint">↻</div>
                             <div class="team-front-info">
                                 <h3>Lawrence Lundy-Bryan</h3>
-                                <span class="role">General Partner</span>
+                                <span class="role">General Partner & Head of Research</span>
                                 <span class="flag">&nbsp;· 🇬🇧</span>
                             </div>
                         </div>
@@ -1448,7 +1434,7 @@
                             <div class="team-back-header">
                                 <div>
                                     <h3>Lawrence Lundy-Bryan</h3>
-                                    <span class="role">General Partner</span>
+                                    <span class="role">General Partner & Head of Research</span>
                                 </div>
                             </div>
                             <a href="mailto:lawrence@cloudberry.vc" class="email">✉ lawrence@cloudberry.vc</a>
@@ -1604,16 +1590,29 @@
                 }
             });
 
+            // Section background color map
+            const sectionBgMap = {
+                'hero': 'var(--space-blue)',
+                'about': 'var(--off-white)',
+                'approach': 'var(--space-blue)',
+                'invest': 'var(--off-white)',
+                'team': 'var(--white)',
+                'news': 'var(--off-white)',
+                'footer': 'var(--space-blue)'
+            };
+
             // Toggle nav appearance
             if (scrollY < 50) {
-                // At top: transparent, dark mode
                 navbar.classList.remove('scrolled', 'light-mode');
+                navbar.style.background = '';
             } else if (isOverDark) {
                 navbar.classList.add('scrolled');
                 navbar.classList.remove('light-mode');
+                navbar.style.background = sectionBgMap[currentSection] || 'var(--space-blue)';
             } else {
                 navbar.classList.add('light-mode');
                 navbar.classList.remove('scrolled');
+                navbar.style.background = sectionBgMap[currentSection] || 'var(--off-white)';
             }
 
             // Footer = dark too
@@ -1623,6 +1622,7 @@
                 if (triggerPoint >= fTop) {
                     navbar.classList.add('scrolled');
                     navbar.classList.remove('light-mode');
+                    navbar.style.background = 'var(--space-blue)';
                 }
             }
 
