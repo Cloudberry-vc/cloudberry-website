@@ -1,0 +1,25 @@
+[
+    {
+        "name": "Proteins.1",
+        "logo": "assets/Proteins.1_logo_black.png",
+        "logoLight": "assets/Proteins.1_logo_color.png",
+        "icon": "assets/Proteins.1_icon_color_white_bg.png",
+        "website": "https://proteins1.com/",
+        "founded": "2025",
+        "description": "Proteins.1 is developing a physics-based, enzyme-free multiomics platform to enable single-molecule investigations for health, life, and beyond.",
+        "founders": [
+            {"name": "Prateek Singh", "role": "CEO", "linkedin": "https://www.linkedin.com/in/pratsku/"},
+            {"name": "Harri Hallila", "role": "COO", "linkedin": "https://www.linkedin.com/in/harri-hallila/"},
+            {"name": "Tuan Nguyen", "role": "CTO", "linkedin": "https://www.linkedin.com/in/tuannguyenp1/"}
+        ],
+        "investmentThesis": {
+            "label": "Why we invested",
+            "url": "post.html?id=why-we-invested-in-proteins-1"
+        },
+        "pressRelease": {
+            "label": "Launch press release",
+            "url": "https://www.vttresearch.com/en/news-and-ideas/vtt-originating-startup-proteins1-launches-bring-pcr-amplification-and-simplicity"
+        },
+        "category": "Photonics"
+    }
+]

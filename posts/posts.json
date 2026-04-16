@@ -1,13 +1,13 @@
 [
   {
-    "id": "semiconductor-packaging",
-    "title": "From Chips to Chiplets: The Packaging Revolution",
-    "summary": "Advanced packaging is reshaping semiconductor design. We explore why chiplet architectures and heterogeneous integration represent a major investment opportunity in Europe.",
-    "date": "2025-03-15",
-    "category": "Deep Dive",
+    "id": "why-we-invested-in-proteins-1",
+    "title": "Why We Invested in Proteins.1",
+    "summary": "What if you could detect disease from a single drop of blood, years before symptoms appear? Proteins.1 has a credible path to making that real.",
+    "date": "2026-04-16",
+    "category": "Portfolio",
     "coverImage": "",
-    "type": "html",
-    "file": "semiconductor-packaging.html"
+    "type": "article",
+    "file": ""
   },
   {
     "id": "cloudberry-launches",

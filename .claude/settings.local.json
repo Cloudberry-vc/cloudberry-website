@@ -19,7 +19,16 @@
       "Bash(curl -s \"https://cloudberry-vc.github.io/cloudberry-website/post.html\")",
       "WebFetch(domain:cloudberry.vc)",
       "Bash(ffmpeg -i iStock-2153442382.mp4 -c:v libx264 -crf 28 -preset slow -vf \"scale=1920:-2\" -an -movflags +faststart hero-bg.mp4 -y)",
-      "Bash(ffmpeg -i hero-bg.mp4 -vframes 1 -q:v 3 hero-bg-poster.jpg -y)"
+      "Bash(ffmpeg -i hero-bg.mp4 -vframes 1 -q:v 3 hero-bg-poster.jpg -y)",
+      "Bash(lsof -ti:3456)",
+      "Bash(find '/Users/rene/Library/CloudStorage/Dropbox/Documents/Claude Cowork/GF-dashboard rev2' -not -path */node_modules/* -type f)",
+      "Bash(find '/Users/rene/Library/CloudStorage/Dropbox/Documents/Claude Cowork/GF-dashboard rev2' -name wrangler.toml -o -name *.env*)",
+      "Bash(find '/Users/rene/Library/CloudStorage/Dropbox/Documents/Claude Cowork/GF-dashboard rev2' -maxdepth 1 -name README* -o -name *.md)",
+      "Bash(grep -r \"live\\\\|deal.*list\" '/Users/rene/Library/CloudStorage/Dropbox/Documents/Claude Cowork/GF-dashboard rev2/src' --include=*.jsx --include=*.js)",
+      "Bash(grep -r \"auth\\\\|login\\\\|token\\\\|ATTIO\" '/Users/rene/Library/CloudStorage/Dropbox/Documents/Claude Cowork/GF-dashboard rev2/src' --include=*.jsx --include=*.js)",
+      "Bash(ls \"/Users/rene/Library/CloudStorage/Dropbox/Documents/Claude Cowork/Cloudberry Website/privacy\"*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://cloudberry-vc.github.io/cloudberry-website/privacy-policy.html\")",
+      "Bash(export PATH=\"/opt/homebrew/bin:$PATH\")"
     ]
   }
 }

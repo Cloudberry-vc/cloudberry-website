@@ -878,6 +878,149 @@
             background-position: center 15%;
         }
 
+        /* ===== PORTFOLIO ===== */
+        .portfolio {
+            background: var(--space-blue);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio .section-tag { color: var(--cloudberry-yellow); }
+        .portfolio .section-tag::before { background: var(--cloudberry-yellow); }
+        .portfolio .section-title { color: var(--white); }
+        .portfolio .section-subtitle { color: var(--muted); }
+
+        .portfolio-list {
+            margin-top: 60px;
+        }
+
+        .portfolio-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 48px;
+            padding: 48px;
+            background: #FFFFFF;
+            border: none;
+            border-radius: 20px;
+            margin-bottom: 28px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(32,38,71,0.08);
+        }
+
+        .portfolio-logo {
+            flex: 0 0 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .portfolio-logo img.logo-text {
+            max-width: 200px;
+            max-height: 80px;
+            object-fit: contain;
+        }
+
+        .portfolio-logo img.logo-icon {
+            max-width: 80px;
+            object-fit: contain;
+        }
+
+        .portfolio-info {
+            flex: 1;
+        }
+
+        .portfolio-info h3 {
+            font-size: 1.4rem;
+            color: var(--space-blue);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .portfolio-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .portfolio-meta a {
+            color: var(--jade);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .portfolio-info p.portfolio-desc {
+            font-size: 0.95rem;
+            color: #3a4060;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .portfolio-founders {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 20px;
+            margin-bottom: 16px;
+        }
+
+        .portfolio-founders a {
+            font-size: 0.85rem;
+            color: var(--space-blue);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .portfolio-founders a:hover {
+            color: var(--jade);
+        }
+
+        .portfolio-founders a::before {
+            content: '';
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            margin-right: 4px;
+            vertical-align: -2px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007A6E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z'%3E%3C/path%3E%3Crect x='2' y='9' width='4' height='12'%3E%3C/rect%3E%3Ccircle cx='4' cy='4' r='2'%3E%3C/circle%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .portfolio-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--jade);
+            text-decoration: none;
+            margin-right: 20px;
+            transition: gap 0.3s;
+        }
+
+        .portfolio-links a:hover { gap: 10px; }
+
+        @media (max-width: 768px) {
+            .portfolio-card {
+                flex-direction: column;
+                gap: 24px;
+                padding: 32px 24px;
+            }
+            .portfolio-logo {
+                flex: none;
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+
         /* ===== BLOG / NEWS ===== */
         .news {
             background: var(--off-white);
@@ -1199,6 +1342,7 @@
                 <li><a href="#about">Our Thesis</a></li>
                 <li><a href="#invest">Focus Areas</a></li>
                 <li><a href="#team">Team</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#news">News</a></li>
                 <li><a href="https://lp.cloudberry.vc" target="_blank" rel="noopener">Investor Portal</a></li>
                 <li><a href="mailto:hello@cloudberry.vc" class="nav-cta">Get in Touch</a></li>
@@ -1498,6 +1642,20 @@
         </div>
     </section>
 
+    <!-- Portfolio -->
+    <section class="portfolio" id="portfolio">
+        <div class="slant-div bottom" data-slant data-color="var(--off-white)"></div>
+        <div class="slant-div top" data-slant data-color="var(--white)"></div>
+        <div class="container">
+            <div class="reveal">
+                <div class="section-tag">Portfolio</div>
+                <h2 class="section-title">Our Companies</h2>
+                <p class="section-subtitle">The founders building the future of semiconductors, photonics, and advanced materials.</p>
+            </div>
+            <div class="portfolio-list" id="portfolioList"></div>
+        </div>
+    </section>
+
     <!-- News / Blog -->
     <section class="news" id="news">
         <div class="container">
@@ -1539,6 +1697,7 @@
                         <li><a href="#about">Our Thesis</a></li>
                         <li><a href="#invest">Focus Areas</a></li>
                         <li><a href="#team">Team</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
                         <li><a href="news.html">News</a></li>
                         <li><a href="https://lp.cloudberry.vc" target="_blank" rel="noopener">Investor Portal</a></li>
                     </ul>
@@ -1568,7 +1727,7 @@
         const navLinksAll = document.querySelectorAll('.nav-links a[href^="#"]');
 
         // Define which sections have dark backgrounds (nav should stay dark-mode there)
-        const darkSections = ['hero', 'approach']; // hero and "Why Europe"
+        const darkSections = ['hero', 'approach', 'portfolio']; // hero, "Why Europe" and Portfolio
 
         // All trackable sections for active link highlighting
         const sections = document.querySelectorAll('section[id], footer');
@@ -1599,6 +1758,7 @@
                 'approach': 'var(--space-blue)',
                 'invest': 'var(--off-white)',
                 'team': 'var(--white)',
+                'portfolio': 'var(--space-blue)',
                 'news': 'var(--off-white)',
                 'footer': 'var(--space-blue)'
             };
@@ -1744,6 +1904,55 @@
             el.style.background = color;
         });
 
+        // ===== PORTFOLIO (from portfolio/portfolio.json) =====
+        async function loadPortfolio() {
+            try {
+                const res = await fetch('portfolio/portfolio.json?t=' + Date.now());
+                const companies = await res.json();
+                const list = document.getElementById('portfolioList');
+                if (!companies || companies.length === 0) return;
+
+                companies.forEach(c => {
+                    const founders = c.founders.map(f =>
+                        `<a href="${f.linkedin}" target="_blank" rel="noopener">${f.name} (${f.role})</a>`
+                    ).join('');
+
+                    const links = [];
+                    if (c.website) links.push(`<a href="${c.website}" target="_blank" rel="noopener">Website <span>&rarr;</span></a>`);
+                    if (c.investmentThesis) links.push(`<a href="${c.investmentThesis.url}">${c.investmentThesis.label} <span>&rarr;</span></a>`);
+                    if (c.pressRelease) links.push(`<a href="${c.pressRelease.url}" target="_blank" rel="noopener">${c.pressRelease.label} <span>&rarr;</span></a>`);
+
+                    const card = document.createElement('div');
+                    card.className = 'portfolio-card reveal';
+                    const iconHtml = c.icon ? `<img class="logo-icon" src="${c.icon}" alt="${c.name} icon">` : '';
+                    card.innerHTML = `
+                        <div class="portfolio-logo">
+                            <a href="${c.website}" target="_blank" rel="noopener">
+                                <img class="logo-text" src="${c.logo}" alt="${c.name}">
+                                ${iconHtml}
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>${c.name}</h3>
+                            <div class="portfolio-meta">
+                                <span>Founded ${c.founded}</span>
+                                <span>${c.category || ''}</span>
+                            </div>
+                            <p class="portfolio-desc">${c.description}</p>
+                            <div class="portfolio-founders">${founders}</div>
+                            <div class="portfolio-links">${links.join('')}</div>
+                        </div>
+                    `;
+                    list.appendChild(card);
+                    setTimeout(() => observer.observe(card), 50);
+                });
+            } catch (e) {
+                console.log('Portfolio not loaded:', e);
+            }
+        }
+
+        loadPortfolio();
+
         // ===== DYNAMIC BLOG POSTS (from posts/posts.json) =====
         function categoryIcon(cat) {
             const icons = {
@@ -1763,6 +1972,7 @@
         }
 
         function getPostUrl(post) {
+            if (post.type === 'external' && post.url) return post.url;
             if (post.type === 'html' && post.file) return 'posts/' + post.file;
             return 'post.html?id=' + post.id;
         }

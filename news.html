@@ -406,6 +406,9 @@
         }
 
         function getPostUrl(post) {
+            if (post.type === 'external' && post.url) {
+                return post.url;
+            }
             if (post.type === 'html' && post.file) {
                 return 'posts/' + post.file;
             }
