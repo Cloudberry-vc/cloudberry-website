@@ -28,7 +28,13 @@
       "Bash(grep -r \"auth\\\\|login\\\\|token\\\\|ATTIO\" '/Users/rene/Library/CloudStorage/Dropbox/Documents/Claude Cowork/GF-dashboard rev2/src' --include=*.jsx --include=*.js)",
       "Bash(ls \"/Users/rene/Library/CloudStorage/Dropbox/Documents/Claude Cowork/Cloudberry Website/privacy\"*)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://cloudberry-vc.github.io/cloudberry-website/privacy-policy.html\")",
-      "Bash(export PATH=\"/opt/homebrew/bin:$PATH\")"
+      "Bash(export PATH=\"/opt/homebrew/bin:$PATH\")",
+      "Bash(curl -s http://localhost:3456/robots.txt)",
+      "Bash(curl -s http://localhost:3456/sitemap.xml)",
+      "Bash(curl -s http://localhost:3456/CNAME)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3456/404.html)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3456/privacy-policy/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3456/why-we-invested-in-proteins-1/)"
     ]
   }
 }

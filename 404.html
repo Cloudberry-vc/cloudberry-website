@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page not found | Cloudberry VC</title>
+    <meta name="description" content="The page you are looking for could not be found.">
+    <link rel="icon" href="/assets/berry_icon.png" type="image/png">
+    <meta name="robots" content="noindex">
+    <script>
+        // Smart redirects: map old Squarespace URLs to new ones.
+        // Runs immediately, before the page renders, so the user doesn't see the 404 flash.
+        (function() {
+            var path = window.location.pathname.replace(/\/+$/, '').toLowerCase();
+
+            // Map of old URL paths to new destinations
+            var redirects = {
+                '/privacy-policy': '/privacy-policy.html',
+                '/why-we-invested-in-proteins-1': '/post.html?id=why-we-invested-in-proteins-1',
+                '/news': '/news.html',
+                '/about': '/#about',
+                '/team': '/#team',
+                '/portfolio': '/#portfolio',
+                '/contact': 'mailto:hello@cloudberry.vc'
+            };
+
+            if (redirects[path]) {
+                window.location.replace(redirects[path]);
+                return;
+            }
+
+            // Generic blog post pattern: /some-slug/ → /post.html?id=some-slug
+            // Only redirect if the slug looks like a blog post (no file extension, no admin etc.)
+            var slug = path.replace(/^\//, '');
+            if (slug && !slug.includes('.') && !slug.includes('/') &&
+                slug !== 'admin' && slug !== 'posts' && slug !== 'portfolio') {
+                // Try the post.html route. The page itself will show "post not found"
+                // if the slug isn't a real post, which is acceptable behavior.
+                window.location.replace('/post.html?id=' + encodeURIComponent(slug));
+            }
+        })();
+    </script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(165deg, #202647 0%, #181d38 50%, #141929 100%);
+            color: #E8EBF2;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+        }
+        .wrap {
+            max-width: 520px;
+        }
+        img.logo {
+            height: 36px;
+            margin-bottom: 32px;
+        }
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            color: #FFBD48;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+        h2 {
+            font-size: 1.4rem;
+            color: #E8EBF2;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        p {
+            color: rgba(232,235,242,0.6);
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+        a.btn {
+            display: inline-block;
+            background: #FFBD48;
+            color: #202647;
+            font-weight: 600;
+            padding: 14px 32px;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        a.btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255,189,72,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <img src="/assets/logo_vc_light.png" alt="Cloudberry VC" class="logo">
+        <h1>404</h1>
+        <h2>Page not found</h2>
+        <p>The page you were looking for has moved or no longer exists.</p>
+        <a href="/" class="btn">Back to home</a>
+    </div>
+</body>
+</html>
