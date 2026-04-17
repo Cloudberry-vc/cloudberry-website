@@ -34,7 +34,9 @@
       "Bash(curl -s http://localhost:3456/CNAME)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3456/404.html)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3456/privacy-policy/)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3456/why-we-invested-in-proteins-1/)"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3456/why-we-invested-in-proteins-1/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3456/cloudberry-launches-europes-first-semiconductor-venture-fund/)",
+      "Bash(curl -s -I \"https://cloudberry-vc.github.io/cloudberry-website/\")"
     ]
   }
 }
