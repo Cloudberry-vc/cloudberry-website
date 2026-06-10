@@ -1994,7 +1994,7 @@
                         <div class="portfolio-info">
                             <h3>${c.name}</h3>
                             <div class="portfolio-meta">
-                                <span>Founded ${c.founded}</span>
+                                ${c.founded ? `<span>Founded ${c.founded}</span>` : ''}
                                 <span>${c.category || ''}</span>
                             </div>
                             <p class="portfolio-desc">${c.description}</p>
