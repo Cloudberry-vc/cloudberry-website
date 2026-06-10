@@ -21,6 +21,11 @@
         <priority>0.3</priority>
     </url>
     <url>
+        <loc>https://cloudberry.vc/post.html?id=why-we-invested-in-proud</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
         <loc>https://cloudberry.vc/post.html?id=why-we-invested-in-proteins-1</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
