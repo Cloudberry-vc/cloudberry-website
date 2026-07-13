@@ -5,7 +5,6 @@
         "logoLight": "assets/Proteins.1_logo_color.png",
         "icon": "assets/Proteins.1_icon_color_white_bg.png",
         "website": "https://proteins1.com/",
-        "founded": "2025",
         "description": "Proteins.1 is developing a physics-based, enzyme-free multiomics platform to enable single-molecule investigations for health, life, and beyond.",
         "founders": [
             {"name": "Prateek Singh", "role": "CEO", "linkedin": "https://www.linkedin.com/in/pratsku/"},
@@ -36,5 +35,20 @@
             "url": "post.html?id=why-we-invested-in-proud"
         },
         "category": "Advanced Materials"
+    },
+    {
+        "name": "Last Mile Semiconductor",
+        "logo": "assets/lms-logo.png",
+        "website": "https://www.lm-semi.com/",
+        "description": "Last Mile Semiconductor is building the first single-chip DECT NR+ radio, a fingernail-sized chip that gives any device 5G-family connectivity with no SIM, no base stations, and years of battery life.",
+        "founders": [
+            {"name": "Christoph Gulich", "role": "CEO", "linkedin": "https://de.linkedin.com/in/christoph-gulich-47121782"},
+            {"name": "Mario Orgis", "role": "CTO", "linkedin": "https://www.linkedin.com/in/marioorgis/"}
+        ],
+        "investmentThesis": {
+            "label": "Why we invested",
+            "url": "post.html?id=why-we-invested-in-last-mile-semiconductor"
+        },
+        "category": "Semiconductors"
     }
 ]
