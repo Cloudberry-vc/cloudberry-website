@@ -21,6 +21,11 @@
         <priority>0.3</priority>
     </url>
     <url>
+        <loc>https://cloudberry.vc/post.html?id=siemens-cre8ventures-partnership</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://cloudberry.vc/post.html?id=why-we-invested-in-last-mile-semiconductor</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
