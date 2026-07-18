@@ -438,7 +438,7 @@
             if (post.type === 'html' && post.file) {
                 return 'posts/' + post.file;
             }
-            return 'post.html?id=' + post.id;
+            return 'news/' + post.id + '/';
         }
 
         async function loadAllPosts() {

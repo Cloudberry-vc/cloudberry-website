@@ -18,8 +18,8 @@
                 '/privacy-policy': '/privacy-policy.html',
                 '/compliance': '/disclosures.html',
                 '/disclosures': '/disclosures.html',
-                '/why-we-invested-in-proteins-1': '/post.html?id=why-we-invested-in-proteins-1',
-                '/cloudberry-launches-europes-first-semiconductor-venture-fund': '/post.html?id=cloudberry-launches',
+                '/why-we-invested-in-proteins-1': '/news/why-we-invested-in-proteins-1/',
+                '/cloudberry-launches-europes-first-semiconductor-venture-fund': '/news/cloudberry-launches/',
                 '/news': '/news.html',
                 '/about': '/#about',
                 '/about-us': '/#about',
@@ -36,14 +36,14 @@
                 return;
             }
 
-            // Generic blog post pattern: /some-slug/ → /post.html?id=some-slug
+            // Generic blog post pattern: /some-slug → /news/some-slug/
             // Only redirect if the slug looks like a blog post (no file extension, no admin etc.)
             var slug = path.replace(/^\//, '');
             if (slug && !slug.includes('.') && !slug.includes('/') &&
-                slug !== 'admin' && slug !== 'posts' && slug !== 'portfolio') {
-                // Try the post.html route. The page itself will show "post not found"
-                // if the slug isn't a real post, which is acceptable behavior.
-                window.location.replace('/post.html?id=' + encodeURIComponent(slug));
+                slug !== 'admin' && slug !== 'posts' && slug !== 'portfolio' && slug !== 'news') {
+                // Try the clean news route. A non-existent slug lands on this 404
+                // page again, which is acceptable behavior.
+                window.location.replace('/news/' + encodeURIComponent(slug) + '/');
             }
         })();
     </script>

@@ -13,7 +13,7 @@
         ],
         "investmentThesis": {
             "label": "Why we invested",
-            "url": "post.html?id=why-we-invested-in-proteins-1"
+            "url": "news/why-we-invested-in-proteins-1/"
         },
         "pressRelease": {
             "label": "Launch press release",
@@ -32,7 +32,7 @@
         ],
         "investmentThesis": {
             "label": "Why we invested",
-            "url": "post.html?id=why-we-invested-in-proud"
+            "url": "news/why-we-invested-in-proud/"
         },
         "category": "Advanced Materials"
     },
@@ -47,7 +47,7 @@
         ],
         "investmentThesis": {
             "label": "Why we invested",
-            "url": "post.html?id=why-we-invested-in-last-mile-semiconductor"
+            "url": "news/why-we-invested-in-last-mile-semiconductor/"
         },
         "category": "Semiconductors"
     }

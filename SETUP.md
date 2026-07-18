@@ -80,3 +80,23 @@ with:
 ```html
 <div class="team-photo" style="background-image: url('assets/rene.jpg');"></div>
 ```
+
+## Post pages and SEO (important)
+
+Individual articles are served as **static pages** under `news/<slug>/index.html`,
+generated from the JSON in `posts/`. Each page has its own title, meta
+description, Open Graph / Twitter tags (so LinkedIn shows a proper preview
+card), and NewsArticle structured data.
+
+**After adding or editing any post** (i.e. after changing `posts/posts.json`
+or any `posts/<slug>.json`), regenerate the static pages:
+
+```
+python3 generate_posts.py
+```
+
+Then commit the updated `news/` directory along with your post changes.
+
+- Clean URLs: `cloudberry.vc/news/<slug>/`
+- The old `post.html?id=<slug>` links still work (they redirect to the clean URL).
+- Social share image: `assets/og-share.png` (used as the default preview image).
