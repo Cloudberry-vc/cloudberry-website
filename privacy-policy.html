@@ -342,7 +342,7 @@
 
         <h2>User Rights</h2>
 
-        <p>You have the right to access and control your personal information. You may request to see the personal information we have collected about you and that we correct or delete any inaccuracies. You may also request that we stop using your personal information for specific purposes. To make any of these requests, please contact us at <a href="mailto:hello@cloudberry.vc">hello@cloudberry.vc</a>.</p>
+        <p>You have the right to access and control your personal information. You may request to see the personal information we have collected about you and that we correct or delete any inaccuracies. You may also request that we stop using your personal information for specific purposes. To make any of these requests, please contact us at <a class="eml" data-u="hello" data-d="cloudberry.vc">hello [at] cloudberry.vc</a>.</p>
 
         <h2>Policy Changes</h2>
 
@@ -352,7 +352,7 @@
 
         <p>Cloudberry VC Oy utilizes selected third party services and frameworks like WordPress and Google Workspace. The website uses services like Google Analytics and Tag Manager for enhanced functionality and analytics. These third party services may collect information about your interaction with our website, such as the pages you visit and the links you click. This information is collected anonymously and is used to improve website performance.</p>
 
-        <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:hello@cloudberry.vc">hello@cloudberry.vc</a>.</p>
+        <p>If you have any questions about this Privacy Policy, please contact us at <a class="eml" data-u="hello" data-d="cloudberry.vc">hello [at] cloudberry.vc</a>.</p>
 
         <h2>Cookie and Tracking Script Policy</h2>
 
@@ -387,14 +387,14 @@
         <h3>Updates to Our Practices</h3>
         <p>Should there be any changes to how we use Google Analytics, including any additional data collection practices, we will update this policy and notify you as required.</p>
 
-        <p>For any questions or concerns regarding our use of Google Analytics, please contact us at <a href="mailto:hello@cloudberry.vc">hello@cloudberry.vc</a>.</p>
+        <p>For any questions or concerns regarding our use of Google Analytics, please contact us at <a class="eml" data-u="hello" data-d="cloudberry.vc">hello [at] cloudberry.vc</a>.</p>
 
         <h3>More Information</h3>
         <p>Please contact us for any additional information or queries regarding our Cookie and Tracking Script Policy.</p>
 
         <div class="contact-block">
             <h3>Contact Us</h3>
-            <p><strong>Email:</strong> <a href="mailto:hello@cloudberry.vc">hello@cloudberry.vc</a></p>
+            <p><strong>Email:</strong> <a class="eml" data-u="hello" data-d="cloudberry.vc">hello [at] cloudberry.vc</a></p>
             <p><strong>Address:</strong> c/o Maria01, Lapinlahdenkatu 16, 00180 Helsinki, Finland</p>
         </div>
 
@@ -427,9 +427,9 @@
             <div class="footer-col">
                 <h4>Connect</h4>
                 <ul>
-                    <li><a href="mailto:rene@cloudberry.vc">rene@cloudberry.vc</a></li>
-                    <li><a href="mailto:veera@cloudberry.vc">veera@cloudberry.vc</a></li>
-                    <li><a href="mailto:lawrence@cloudberry.vc">lawrence@cloudberry.vc</a></li>
+                    <li><a class="eml" data-u="rene" data-d="cloudberry.vc">rene [at] cloudberry.vc</a></li>
+                    <li><a class="eml" data-u="veera" data-d="cloudberry.vc">veera [at] cloudberry.vc</a></li>
+                    <li><a class="eml" data-u="lawrence" data-d="cloudberry.vc">lawrence [at] cloudberry.vc</a></li>
                     <li><a href="privacy-policy.html">Privacy Policy</a></li>
                     <li><a href="disclosures.html">Disclosures</a></li>
                 </ul>
@@ -458,6 +458,11 @@
             el.style.setProperty('--slant-h', h + 'px');
             el.style.setProperty('--slant-clip', clip);
             el.style.background = color;
+        });
+
+        document.querySelectorAll('a.eml[data-u]').forEach(function(a){
+            var u=a.getAttribute('data-u'), d=a.getAttribute('data-d');
+            a.setAttribute('href','mailto:'+u+'@'+d);
         });
     </script>
 </body>

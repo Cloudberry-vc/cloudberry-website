@@ -1404,7 +1404,7 @@
                 <li><a href="#team">Team</a></li>
                 <li><a href="#news">News</a></li>
                 <li><a href="https://lp.cloudberry.vc" target="_blank" rel="noopener">Investor Portal</a></li>
-                <li><a href="mailto:hello@cloudberry.vc" class="nav-cta">Get in Touch</a></li>
+                <li><a class="nav-cta eml" data-u="hello" data-d="cloudberry.vc" data-keep="1" href="#contact">Get in Touch</a></li>
             </ul>
             <div class="hamburger" id="hamburger" onclick="toggleMenu()">
                 <span></span><span></span><span></span>
@@ -1604,7 +1604,7 @@
                                     <span class="role">Founding Partner</span>
                                 </div>
                             </div>
-                            <a href="mailto:rene@cloudberry.vc" class="email">✉ rene@cloudberry.vc</a>
+                            <a class="email eml" data-u="rene" data-d="cloudberry.vc" data-prefix="✉ ">✉ rene [at] cloudberry.vc</a>
                             <p class="bio">Before Cloudberry, René served on the leadership team at Heptagon, a global leader in optical sensors, scaling the company from a handful of employees into a global powerhouse. His tenure culminated in Heptagon's acquisition by ams AG in 2017. He began his career in engineering and product management at ASML.</p>
                         </div>
                     </div>
@@ -1629,7 +1629,7 @@
                                     <span class="role">Founding Partner</span>
                                 </div>
                             </div>
-                            <a href="mailto:veera@cloudberry.vc" class="email">✉ veera@cloudberry.vc</a>
+                            <a class="email eml" data-u="veera" data-d="cloudberry.vc" data-prefix="✉ ">✉ veera [at] cloudberry.vc</a>
                             <p class="bio">Veera has nearly a decade of experience supporting early-stage teams and deep tech companies. Since 2019, she has been involved in the deep tech space across investments, portfolio support, legal and fund administration. She has also advised companies as a fractional CFO.</p>
                         </div>
                     </div>
@@ -1654,7 +1654,7 @@
                                     <span class="role">General Partner & Head of Research</span>
                                 </div>
                             </div>
-                            <a href="mailto:lawrence@cloudberry.vc" class="email">✉ lawrence@cloudberry.vc</a>
+                            <a class="email eml" data-u="lawrence" data-d="cloudberry.vc" data-prefix="✉ ">✉ lawrence [at] cloudberry.vc</a>
                             <p class="bio">Always early to a market opportunity: crypto in 2015 and Deep Tech in 2020. Lawrence believes the greatest opportunity in the next decade is semiconductors. Most interested in photonic memory, compound semi, and edge computing. He writes speculative fiction at State of the Future.</p>
                         </div>
                     </div>
@@ -1763,9 +1763,9 @@
                 <div class="footer-col">
                     <h4>Connect</h4>
                     <ul>
-                        <li><a href="mailto:rene@cloudberry.vc">rene@cloudberry.vc</a></li>
-                        <li><a href="mailto:veera@cloudberry.vc">veera@cloudberry.vc</a></li>
-                        <li><a href="mailto:lawrence@cloudberry.vc">lawrence@cloudberry.vc</a></li>
+                        <li><a class="eml" data-u="rene" data-d="cloudberry.vc">rene [at] cloudberry.vc</a></li>
+                        <li><a class="eml" data-u="veera" data-d="cloudberry.vc">veera [at] cloudberry.vc</a></li>
+                        <li><a class="eml" data-u="lawrence" data-d="cloudberry.vc">lawrence [at] cloudberry.vc</a></li>
                         <li><a href="privacy-policy.html">Privacy Policy</a></li>
                         <li><a href="disclosures.html">Disclosures</a></li>
                     </ul>
@@ -2078,6 +2078,12 @@
         }
 
         loadBlogPosts();
+
+        // Rebuild email links in-browser so bots scraping the raw HTML never see them.
+        document.querySelectorAll('a.eml[data-u]').forEach(function(a){
+            var u=a.getAttribute('data-u'), d=a.getAttribute('data-d');
+            a.setAttribute('href','mailto:'+u+'@'+d);
+        });
     </script>
 </body>
 </html>

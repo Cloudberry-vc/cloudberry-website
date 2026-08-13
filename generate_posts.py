@@ -26,7 +26,7 @@ NEWS_DIR = ROOT / "news"
 SITE = "https://cloudberry.vc"
 DEFAULT_OG_IMAGE = f"{SITE}/assets/og-share.png"
 
-TEMPLATE = (ROOT / "post.html").read_text(encoding="utf-8")
+TEMPLATE = (ROOT / "post_template.html").read_text(encoding="utf-8")
 
 
 def fmt_date(date_str):

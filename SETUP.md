@@ -97,6 +97,8 @@ python3 generate_posts.py
 
 Then commit the updated `news/` directory along with your post changes.
 
+The generator builds each page from `post_template.html` (do not delete it; `post.html` itself is only a redirect for old links). Emails in post content should use the bot-safe `name [at] cloudberry.vc` text form, since static post pages do not run the email-rebuild script.
+
 - Clean URLs: `cloudberry.vc/news/<slug>/`
 - The old `post.html?id=<slug>` links still work (they redirect to the clean URL).
 - Social share image: `assets/og-share.png` (used as the default preview image).

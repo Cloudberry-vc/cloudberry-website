@@ -355,12 +355,12 @@
 
         <h2>Contact</h2>
 
-        <p>For questions relating to compliance or sustainability matters, please contact Veera Pietikäinen at <a href="mailto:veera@cloudberry.vc">veera@cloudberry.vc</a>.</p>
+        <p>For questions relating to compliance or sustainability matters, please contact Veera Pietikäinen at <a class="eml" data-u="veera" data-d="cloudberry.vc">veera [at] cloudberry.vc</a>.</p>
 
         <div class="contact-block">
             <h3>Cloudberry VC Oy</h3>
             <p><strong>Address:</strong> c/o Maria01, Lapinlahdenkatu 16, 00180 Helsinki, Finland</p>
-            <p><strong>Email:</strong> <a href="mailto:veera@cloudberry.vc">veera@cloudberry.vc</a></p>
+            <p><strong>Email:</strong> <a class="eml" data-u="veera" data-d="cloudberry.vc">veera [at] cloudberry.vc</a></p>
         </div>
 
         <p class="closing-note">Last updated: May 2026</p>
@@ -392,9 +392,9 @@
             <div class="footer-col">
                 <h4>Connect</h4>
                 <ul>
-                    <li><a href="mailto:rene@cloudberry.vc">rene@cloudberry.vc</a></li>
-                    <li><a href="mailto:veera@cloudberry.vc">veera@cloudberry.vc</a></li>
-                    <li><a href="mailto:lawrence@cloudberry.vc">lawrence@cloudberry.vc</a></li>
+                    <li><a class="eml" data-u="rene" data-d="cloudberry.vc">rene [at] cloudberry.vc</a></li>
+                    <li><a class="eml" data-u="veera" data-d="cloudberry.vc">veera [at] cloudberry.vc</a></li>
+                    <li><a class="eml" data-u="lawrence" data-d="cloudberry.vc">lawrence [at] cloudberry.vc</a></li>
                     <li><a href="privacy-policy.html">Privacy Policy</a></li>
                     <li><a href="disclosures.html">Disclosures</a></li>
                 </ul>
@@ -423,6 +423,11 @@
             el.style.setProperty('--slant-h', h + 'px');
             el.style.setProperty('--slant-clip', clip);
             el.style.background = color;
+        });
+
+        document.querySelectorAll('a.eml[data-u]').forEach(function(a){
+            var u=a.getAttribute('data-u'), d=a.getAttribute('data-d');
+            a.setAttribute('href','mailto:'+u+'@'+d);
         });
     </script>
 </body>
