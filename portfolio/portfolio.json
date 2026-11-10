@@ -65,6 +65,10 @@
             "label": "Why we invested",
             "url": "news/why-we-invested-in-tendrils/"
         },
+        "pressRelease": {
+            "label": "Press release",
+            "url": "https://tendrils.co/blog/2026-11-10/30m-raised"
+        },
         "category": "Semiconductors"
     }
 ]
