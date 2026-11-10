@@ -1,5 +1,15 @@
 [
   {
+    "id": "why-we-invested-in-tendrils",
+    "title": "Why We Invested in Tendrils Compute",
+    "summary": "What if neither CPUs nor GPUs are the right chips for agents? Tendrils is building a different one, on interaction nets, where the parallelism comes with the program.",
+    "date": "2026-11-10",
+    "category": "Portfolio",
+    "coverImage": "",
+    "type": "article",
+    "file": ""
+  },
+  {
     "id": "racyics-cloudberry-partnership",
     "title": "Racyics and Cloudberry VC give European fabless startups a complete path from design to silicon",
     "summary": "Racyics and Cloudberry VC have entered a strategic collaboration pairing Racyics' design enablement and EuroCDP access with Cloudberry's capital and industrial network, giving European fabless semiconductor startups a complete path from design concept to working silicon.",

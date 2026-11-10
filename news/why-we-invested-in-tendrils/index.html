@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why We Invested in Tendrils Compute | Cloudberry VC</title>
+    <meta name="description" content="What if neither CPUs nor GPUs are the right chips for agents? Tendrils is building a different one, on interaction nets, where the parallelism comes with the program.">
+    <link rel="icon" href="/assets/berry_icon.png" type="image/png">
+    <link rel="canonical" href="https://cloudberry.vc/news/why-we-invested-in-tendrils/">
+    <meta name="google-site-verification" content="1224mTXrhqarxmKMTx8qUroTttgN_f8NBbqr9HDx5N0">
+    <meta name="google-site-verification" content="JUj3bKYoaq-nqbGCF6S8_3Cre4F0No1B5f5K7hyidXM">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Cloudberry VC">
+    <meta property="og:url" content="https://cloudberry.vc/news/why-we-invested-in-tendrils/">
+    <meta property="og:title" content="Why We Invested in Tendrils Compute">
+    <meta property="og:description" content="What if neither CPUs nor GPUs are the right chips for agents? Tendrils is building a different one, on interaction nets, where the parallelism comes with the program.">
+    <meta property="og:image" content="https://cloudberry.vc/assets/og-share.png">
+    <meta property="article:published_time" content="2026-11-10">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Why We Invested in Tendrils Compute">
+    <meta name="twitter:description" content="What if neither CPUs nor GPUs are the right chips for agents? Tendrils is building a different one, on interaction nets, where the parallelism comes with the program.">
+    <meta name="twitter:image" content="https://cloudberry.vc/assets/og-share.png">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": "Why We Invested in Tendrils Compute",
+  "description": "What if neither CPUs nor GPUs are the right chips for agents? Tendrils is building a different one, on interaction nets, where the parallelism comes with the program.",
+  "datePublished": "2026-11-10",
+  "dateModified": "2026-11-10",
+  "author": {
+    "@type": "Organization",
+    "name": "Cloudberry VC",
+    "url": "https://cloudberry.vc"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Cloudberry VC",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://cloudberry.vc/assets/logo_vc_dark.png"
+    }
+  },
+  "image": "https://cloudberry.vc/assets/og-share.png",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://cloudberry.vc/news/why-we-invested-in-tendrils/"
+  }
+}
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5R376Z6C');</script>
+    <!-- End Google Tag Manager -->
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --space-blue: #202647;
+            --cloudberry-yellow: #FFBD48;
+            --jade: #007A6E;
+            --muted: #8090A8;
+            --off-white: #DEE2EC;
+            --white: #E8EBF2;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--white);
+            color: #2A2F45;
+            line-height: 1.8;
+        }
+
+        /* Nav */
+        .post-nav {
+            background: rgba(32, 38, 71, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+        }
+
+        .post-nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .post-nav img { height: 32px; }
+
+        .post-nav a.back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            padding: 8px 18px;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.04);
+            transition: all 0.25s;
+            backdrop-filter: blur(8px);
+        }
+
+        .post-nav a.back-link:hover {
+            color: var(--cloudberry-yellow);
+            border-color: rgba(255,189,72,0.25);
+            background: rgba(255,189,72,0.06);
+        }
+
+        /* Article */
+        .article {
+            max-width: 740px;
+            margin: 0 auto;
+            padding: 60px 24px 100px;
+        }
+
+        .article-date {
+            font-size: 0.85rem;
+            color: var(--muted);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .article h1 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            color: var(--space-blue);
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .article-summary {
+            font-size: 1.15rem;
+            color: var(--muted);
+            border-left: 3px solid var(--jade);
+            padding-left: 20px;
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .article-cover {
+            width: 100%;
+            border-radius: 16px;
+            margin-bottom: 40px;
+        }
+
+        /* Article content */
+        .article-body h2 {
+            font-size: 1.5rem;
+            color: var(--space-blue);
+            margin-top: 48px;
+            margin-bottom: 16px;
+        }
+
+        .article-body h3 {
+            font-size: 1.2rem;
+            color: var(--space-blue);
+            margin-top: 36px;
+            margin-bottom: 12px;
+        }
+
+        .article-body p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .article-body img {
+            max-width: 100%;
+            border-radius: 12px;
+            margin: 24px 0;
+        }
+
+        .article-body blockquote {
+            border-left: 3px solid var(--cloudberry-yellow);
+            padding-left: 20px;
+            margin: 28px 0;
+            color: var(--muted);
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        .article-body a {
+            color: var(--jade);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .article-body ul, .article-body ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .article-body li {
+            margin-bottom: 8px;
+        }
+
+        .article-body pre {
+            background: var(--space-blue);
+            color: rgba(255,255,255,0.85);
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 24px 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .article-body iframe, .article-body video {
+            width: 100%;
+            border-radius: 12px;
+            margin: 24px 0;
+        }
+
+        .article-body .infographic-embed-wrapper {
+            margin: 32px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(32,38,71,0.08);
+        }
+
+        .article-body .infographic-embed-wrapper iframe {
+            margin: 0;
+            border-radius: 0;
+        }
+
+        .article-body .infographic-embed-label {
+            background: var(--space-blue);
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 6px 14px;
+            font-family: Arial, sans-serif;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Footer */
+        .post-footer {
+            max-width: 740px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            border-top: 1px solid rgba(32,38,71,0.08);
+            text-align: center;
+        }
+
+        .post-footer a {
+            color: var(--jade);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 100px 20px;
+            color: var(--muted);
+        }
+
+        .loading .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--off-white);
+            border-top-color: var(--jade);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Grid overlay (matching main site) */
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .grid-overlay::before {
+            content: '';
+            position: absolute;
+            inset: -80px;
+            background-image:
+                linear-gradient(rgba(128,144,168,0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(128,144,168,0.07) 1px, transparent 1px);
+            background-size: 80px 80px;
+            animation: gridMove 25s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(80px, 80px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5R376Z6C"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="grid-overlay"></div>
+
+    <div class="post-nav">
+        <div class="container">
+            <a href="/"><img src="/assets/logo_vc_light.png" alt="Cloudberry VC"></a>
+            <a href="/#news" class="back-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg> Back to News</a>
+        </div>
+    </div>
+
+    <article class="article" id="article">
+        <p class="article-date">November 10, 2026</p>
+        <h1>Why We Invested in Tendrils Compute</h1>
+        <p class="article-summary">What if neither CPUs nor GPUs are the right chips for agents? Tendrils is building a different one, on interaction nets, where the parallelism comes with the program.</p>
+        
+        <div class="article-body"><img src="/assets/tendrils-architectures.png" alt="Comparison of three chip architectures. CPU: a few big cores sharing memory. GPU: thousands of identical lanes sharing memory. Tendrils: thousands of small cores, each with its own memory."><p>Every processor basically works the same way. It takes a list of instructions and goes through them in order, one after another. I mean, it's more complicated than that, but it's not really more complicated than that. It's a design from the 1940s, and the history of the last 80 odd years is really a history of bolting things like pipelines, branch predictors, out-of-order execution, and more cores. <strong>These are all ways to get computers to do more stuff at the same time.</strong></p><p>One of our best tricks is to add more cores. Clock speeds have been pretty much flat since the mid-2000s, so the main way to go faster now is more cores. 2 cores. 4 cores. 18 cores in the latest M5 Max. That's for the CPUs. GPUs fixed this for one kind of work. If you have thousands of identical sums to do at once, like multiplying matrices for an AI model, a GPU is brilliant. Give it work where every thread takes a different branch, and most of the chip sits idle.</p><p><strong>Logic sitting idle is where budgets go to die.</strong> And pretty much all of computing is heading that way. The same problem of waiting for something else to happen before you can do your job is at the heart of all our computers. And it's breaking.</p><p>Agents for example, they have millions of small tasks that branch, wait on a tool and change course. Search, simulation, compilers, proof checking and option pricing all look like this too. CPUs chase one thread of branchy code very fast, and a GPU needs thousands of threads all doing the same sum at once. <strong>What if neither CPUs nor GPUs are the right chips for agents?</strong></p><h2>Interaction Nets</h2><p>Tendrils is building a processor on a different model of computing called interaction nets. Yves Lafont came up with them in 1990. A program is a graph of small nodes, and computing means rewriting little bits of that graph by local rules. Each rewrite only touches its own corner, so every part that is ready can go at the same time, and you get the same answer whatever order they go in. <strong>Again, you get the same answer whatever the order they go in. So you get parallelism for free, at least on paper. You do not have to write all that fancy software to force parallelism on inherently serial architectures.</strong></p><p>So the parallelism comes with the program and the programmer doesn't split anything up. Their language, <a href="https://vine.dev/" target="_blank" rel="noopener">Vine</a>, is open source and you can try it today. There's a nice example in <a href="https://tendrils.co/background" target="_blank" rel="noopener">their own write-up</a>: a textbook algorithm written the obvious way, with 2 nested loops. Run it on lists of 200 items and a machine with unlimited cores could do an average of 274 tiny steps at once. Make the lists 10x longer and that goes to 2,739, and nobody touched the code.</p><h2>If it's so obvious, why has no-one done it yet?</h2><p>Sort of, yes. Dataflow machines, the Connection Machine, Transputers and Japan's Fifth Generation project were all lovely parallel designs, and all of them lost to ordinary chips getting faster every year. Never bet against Moore's Law, they said. Well.</p><p>Interaction nets themselves have almost always run as software on normal chips, which is the worst place for them, because you pay the overheads of the old model on every step of the new one. As far as I know nobody has taped out the chip the model wants. Tendrils is building it.</p><p>And this is key to my thesis on the future of compute. Making chips used to be the preserve of a few large companies with big design and verification teams and deep relationships with fabs where they can commit to massive volumes. It was expensive and high-risk.</p><p>But those days are coming to an end. Chips are getting cheaper and faster to design, and a lot of that is AI. OpenAI and Broadcom took <a href="https://openai.com/index/openai-broadcom-jalapeno-inference-chip/" target="_blank" rel="noopener">Jalapeño</a>, OpenAI's first chip, from initial design to tape-out in 9 months, using OpenAI's own models on parts of the design. Then yesterday Google said it's using Gemini to deliver <a href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/tpu-8i-max-and-8tx/" target="_blank" rel="noopener">chip layouts in hours rather than weeks</a>. The masks still cost what they cost of course, but engineer time is a huge part of the cost, and it's starting to fall.</p><p>You also don't really need to sell chips anymore. Selling a chip used to mean convincing someone to design your part into their server and then waiting years to find out if it worked. Now people want to buy a rack with an API on top, and I think most of them don't much care what's inside it as long as it's fast and/or cheap. <a href="https://www.etched.com/" target="_blank" rel="noopener">Etched</a> sells whole racks, and says it already has over $1bn of customer contracts for them. So a new chip company can get to market faster and with far fewer people to convince.</p><p>Finding those customers is getting easier too. Workload orchestrators like <a href="https://www.callosum.com/" target="_blank" rel="noopener">Callosum</a> break an AI workload into pieces and send each piece to whichever chip runs it best, so a new chip only has to be the best at something to get used, and developers call an API and don't have to rewrite anything. Tendrils is one of their <a href="https://albion.vc/spotlight/news/callosum-raises-100m-seed-round-to-build-the-intelligent-systems-layer-for-the-heterogeneous-era-of-ai/" target="_blank" rel="noopener">silicon partners</a>.</p><p>Then there's software, which is what has held back most new chips for 40 years, because nobody wants to rewrite their code. AI is making it easier than ever to rewrite and port it. <a href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/tpu-8i-max-and-8tx/" target="_blank" rel="noopener">Google's new tools</a> plug straight into Claude Code and Cursor to get people onto TPUs in minutes. It's harder for a brand new chip, sure, since the models have much less code to learn from. But Vine looks a lot like Rust, so moving code over should be closer to translation than a rewrite.</p><p>All of this is part of a broader trend towards dedicated silicon for each workload, and away from a few general purpose chips that serve no use case optimally. The rise of AI accelerators is a hint at this future. Google has now announced 4 TPU systems in a single year, each one built for a different job. This is <a href="https://stateofthefuture.substack.com/p/lfg-for-semiconductors" target="_blank" rel="noopener">Heterogeneous Computing</a>. Lots of different chips that are each very good at something. If I'm right, there's room for a chip built for the messy, branching stuff, and Tendrils doesn't have to replace every CPU on day one to get going.</p><h2>Why we're in</h2><p>Nils Cremer worked on interaction nets at ETH Zürich and wrote <a href="https://nilscrm.dev/ipu.html" target="_blank" rel="noopener">the essay</a> that became the company. T6 built Vine, the language and the whole toolchain under it. Hugo McNally came from lowRISC, where he worked on open-source silicon like OpenTitan. These are the only people in the world who can pull off something this technically ambitious that needs deep software and hardware thinking from first principles.</p><p>We are very pleased to join Benchmark, along with Visionaries Club, the UK Sovereign AI Fund, FR8, Antimatter, Conviction, Embassy Ventures and SV Angel in the round to support Tendrils on this ambitious journey.</p><hr><p>Computing is a history of applying parallelism to serial architectures. This was fine when humans were the main users of compute. We could manage. But as agents become the dominant user of compute, our tricks may not be enough.</p><p>Not many companies are built to rebuild computing from scratch. Here is one. Godspeed.</p></div>
+    </article>
+
+    <div class="post-footer">
+        <a href="/#news">&larr; Back to all posts</a>
+    </div>
+
+</body>
+</html>

@@ -50,5 +50,21 @@
             "url": "news/why-we-invested-in-last-mile-semiconductor/"
         },
         "category": "Semiconductors"
+    },
+    {
+        "name": "Tendrils Compute",
+        "logo": "assets/tendrils-logo.png",
+        "website": "https://tendrils.co",
+        "description": "Tendrils is building a processor on interaction nets, a model where parallelism comes free with the program, built for the messy, branching workloads that modern CPUs and GPUs handle badly.",
+        "founders": [
+            {"name": "Nils Cremer", "role": "CEO", "linkedin": "https://www.linkedin.com/in/nils-cremer/"},
+            {"name": "Hugo McNally", "role": "Co-founder", "linkedin": "https://www.linkedin.com/in/hugo-mcnally-550569185/"},
+            {"name": "T6", "role": "Co-founder", "linkedin": "https://t6.dev/"}
+        ],
+        "investmentThesis": {
+            "label": "Why we invested",
+            "url": "news/why-we-invested-in-tendrils/"
+        },
+        "category": "Semiconductors"
     }
 ]
