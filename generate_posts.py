@@ -148,7 +148,7 @@ def generate_page(meta, content):
 
     # Replace the <head> SEO block: from <title> through the </meta twitter:image> line.
     head_start = page.index("    <title>")
-    head_end = page.index("<!-- Google Tag Manager -->")
+    head_end = page.index("<!-- Cookie consent: loads Google Tag Manager only after Accept -->")
     page = page[:head_start] + build_head(meta, canonical, og_image) + "\n    " + page[head_end:]
 
     # Make asset and internal links root-absolute (page lives two levels deep).

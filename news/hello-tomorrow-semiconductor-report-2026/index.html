@@ -48,13 +48,8 @@
   }
 }
     </script>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-5R376Z6C');</script>
-    <!-- End Google Tag Manager -->
+    <!-- Cookie consent: loads Google Tag Manager only after Accept -->
+    <script src="/assets/consent.js" defer></script>
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -262,6 +257,18 @@
             font-size: 0.95rem;
         }
 
+        .post-footer-legal {
+            margin-top: 16px;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .post-footer-legal a {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--muted);
+        }
+
         /* Loading */
         .loading {
             text-align: center;
@@ -309,11 +316,6 @@
 </head>
 <body>
 
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5R376Z6C"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
     <div class="grid-overlay"></div>
 
     <div class="post-nav">
@@ -333,6 +335,7 @@
 
     <div class="post-footer">
         <a href="/#news">&larr; Back to all posts</a>
+        <p class="post-footer-legal"><a href="/privacy-policy.html">Privacy Policy</a> | <a href="#" class="cookie-settings">Cookie settings</a></p>
     </div>
 
 </body>
